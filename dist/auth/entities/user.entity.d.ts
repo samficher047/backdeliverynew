@@ -1,0 +1,33 @@
+import { Balance } from "src/client/balance/entities/balance.entity";
+import { Store } from "src/admin/store/entities/store.entity";
+import { Session } from "src/auth/entities/session.entity";
+import { Order } from "src/client/market/entities/order.entity";
+import { Product } from '../../admin/product/entities/product.entity';
+import { Chat } from '../../chat/entities/chat.entity';
+import { Company } from "src/admin/company/entities/company.entity";
+import { Credit } from "src/admin/credit/entities/credit.entity";
+export declare class User {
+    id: number;
+    idGoogle: string;
+    fullName: string;
+    email: string;
+    phone: string;
+    password: string;
+    passwordTemporary: string;
+    image: string;
+    isActive: boolean;
+    roles: string[];
+    createdAt: Date;
+    updatedAt: Date;
+    products?: Product[];
+    companies?: Company[];
+    stores?: Store[];
+    balances?: Balance[];
+    credits?: Credit[];
+    addresses?: Store[];
+    payments?: Store[];
+    orders?: Order[];
+    chatsFrom?: Chat[];
+    chatsTo?: Chat[];
+    sessions?: Session[];
+}

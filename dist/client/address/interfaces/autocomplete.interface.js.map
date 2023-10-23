@@ -1,0 +1,1 @@
+{"version":3,"file":"autocomplete.interface.js","sourceRoot":"","sources":["../../../../src/client/address/interfaces/autocomplete.interface.ts"],"names":[],"mappings":";;;AAAA,MAAa,YAAY;CAGxB;AAHD,oCAGC;AAED,MAAa,UAAU;IAMnB,YAAY,WAAmB,EAAE,QAAgB;QAC7C,IAAI,CAAC,WAAW,GAAG,WAAW,CAAC;QAC/B,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;IAC7B,CAAC;CAEJ;AAXD,gCAWC"}
