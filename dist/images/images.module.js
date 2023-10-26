@@ -13,6 +13,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const order_entity_1 = require("../client/market/entities/order.entity");
 const images_entity_1 = require("./entities/images.entity");
 const imagesUsers_entity_1 = require("./entities/imagesUsers.entity");
+const imgProduc_entity_1 = require("./entities/imgProduc.entity");
 const images_controller_1 = require("./images.controller");
 const images_service_1 = require("./images.service");
 let Images1Module = class Images1Module {
@@ -22,7 +23,7 @@ exports.Images1Module = Images1Module = __decorate([
     (0, common_1.Module)({
         controllers: [images_controller_1.GaleryController],
         providers: [images_service_1.ImagesService],
-        imports: [typeorm_1.TypeOrmModule.forFeature([order_entity_1.Order, images_entity_1.entityimages1, imagesUsers_entity_1.entityimagesUser]), auth_module_1.AuthModule]
+        imports: [typeorm_1.TypeOrmModule.forFeature([order_entity_1.Order, images_entity_1.entityimages1, imagesUsers_entity_1.entityimagesUser, imgProduc_entity_1.entityimagesProduc]), auth_module_1.AuthModule]
     })
 ], Images1Module);
 //# sourceMappingURL=images.module.js.map
