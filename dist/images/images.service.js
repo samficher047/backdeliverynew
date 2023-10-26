@@ -15,13 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ImagesService = void 0;
 const images_entity_1 = require("./entities/images.entity");
 const imagesUsers_entity_1 = require("./entities/imagesUsers.entity");
+const imgProduc_entity_1 = require("./entities/imgProduc.entity");
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const typeorm_2 = require("@nestjs/typeorm");
 let ImagesService = class ImagesService {
-    constructor(conectimages1, connectimages2) {
+    constructor(conectimages1, connectimages2, connectImgProduc) {
         this.conectimages1 = conectimages1;
         this.connectimages2 = connectimages2;
+        this.connectImgProduc = connectImgProduc;
     }
     async infoimg(idimge) {
         console.log('entro a servicio de prueba');
@@ -71,13 +73,53 @@ let ImagesService = class ImagesService {
         });
         return datosbase1;
     }
+    async insertRegProduc(name_prod, originalName, filename, rute, size, id_user, type_user, key_group) {
+        const resultEntities = [];
+        const datosbase2 = this.connectImgProduc.create({
+            name_prod: name_prod,
+            originalName: originalName,
+            filename: filename,
+            rute: rute,
+            size: size,
+            id_user: id_user,
+            type_user: type_user,
+            key_group: key_group,
+        });
+        await datosbase2.save();
+        resultEntities.push(datosbase2);
+        console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<datos mandados a tabla>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        console.log(datosbase2);
+        return datosbase2;
+    }
+    async infoimgProduc(idimge) {
+        console.log('entro a servicio de prueba');
+        console.log(idimge);
+        const datosbase1 = await this.connectImgProduc.find({
+            where: {
+                id_imgProduc: idimge,
+            },
+        });
+        return datosbase1;
+    }
+    async infoimgProduc2(idimge) {
+        console.log('entro a servicio de prueba');
+        console.log(idimge);
+        const datosbase1 = await this.connectImgProduc.find({
+            where: {
+                key_group: idimge,
+            },
+        });
+        return datosbase1;
+    }
 };
 exports.ImagesService = ImagesService;
 exports.ImagesService = ImagesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_2.InjectRepository)(images_entity_1.entityimages1)),
     __param(1, (0, typeorm_2.InjectRepository)(imagesUsers_entity_1.entityimagesUser)),
+    __param(2, (0, typeorm_2.InjectRepository)(imgProduc_entity_1.entityimagesProduc)),
     __metadata("design:paramtypes", [typeorm_1.Repository,
+        typeorm_1.Repository,
         typeorm_1.Repository])
 ], ImagesService);
 //# sourceMappingURL=images.service.js.map

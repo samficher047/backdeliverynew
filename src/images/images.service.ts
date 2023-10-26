@@ -1,5 +1,6 @@
 import { entityimages1 } from 'src/images/entities/images.entity';
 import { entityimagesUser } from 'src/images/entities/imagesUsers.entity'
+import { entityimagesProduc } from 'src/images/entities/imgProduc.entity'
 import { Repository, getRepository } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
@@ -12,6 +13,8 @@ export class ImagesService {
     private readonly conectimages1: Repository<entityimages1>,
     @InjectRepository(entityimagesUser)
     private readonly connectimages2: Repository<entityimagesUser>,
+    @InjectRepository(entityimagesProduc)
+    private readonly connectImgProduc: Repository<entityimagesProduc>,
   ) {}
 
   async infoimg(idimge): Promise<any> {
@@ -70,6 +73,54 @@ export class ImagesService {
     const datosbase1 = await this.connectimages2.find({
       where: {
         id_imgUser: idimge,
+      },
+    });
+
+    return datosbase1;
+  }
+
+  async insertRegProduc(name_prod, originalName, filename, rute, size, id_user, type_user, key_group ): Promise<any> {
+    const resultEntities = [];
+    const datosbase2 = this.connectImgProduc.create({
+      name_prod: name_prod,
+      originalName: originalName,
+    filename: filename,
+    rute: rute,
+    size: size,
+    id_user: id_user,
+    type_user: type_user,
+    key_group: key_group,
+    });
+    await datosbase2.save();
+    resultEntities.push(datosbase2);
+
+    console.log(
+      '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<datos mandados a tabla>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
+    );
+    console.log(datosbase2);
+
+    return datosbase2;
+  }
+
+  async infoimgProduc(idimge): Promise<any> {
+    console.log('entro a servicio de prueba');
+    console.log(idimge);
+    const datosbase1 = await this.connectImgProduc.find({
+      where: {
+        id_imgProduc: idimge,
+       
+      },
+    });
+
+    return datosbase1;
+  }
+  async infoimgProduc2(idimge): Promise<any> {
+    console.log('entro a servicio de prueba');
+    console.log(idimge);
+    const datosbase1 = await this.connectImgProduc.find({
+      where: {
+        key_group: idimge,
+       
       },
     });
 

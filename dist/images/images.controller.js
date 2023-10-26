@@ -54,6 +54,31 @@ let GaleryController = class GaleryController {
         const result = await this.imagesServ.infoimgUser(idimge);
         return result;
     }
+    async insertphotoProd(name_prod, id_user, type, images) {
+        if (!images || images.length === 0) {
+            return 'Faltan datos requeridos.';
+        }
+        console.log('datos a insertar: ');
+        console.log(id_user);
+        console.log(images);
+        let keyGroup = 0;
+        for (let i = 0; i < images.length; i++) {
+            const dat = images[i];
+            const resultInsert = await this.imagesServ.insertRegProduc(name_prod, dat.originalname, dat.filename, dat.path, dat.size, id_user, type, keyGroup);
+            if (i === 0 && resultInsert.id_imgProduc) {
+                keyGroup = resultInsert.id_imgProduc;
+            }
+        }
+        return 'Imagen subida exitosamente';
+    }
+    async imgproduc(idimge) {
+        console.log('id=>');
+        console.log(idimge);
+        const result = await this.imagesServ.infoimgProduc(idimge);
+        const result2 = await this.imagesServ.infoimgProduc2(idimge);
+        const info = [].concat(...result, ...result2);
+        return info;
+    }
 };
 exports.GaleryController = GaleryController;
 __decorate([
@@ -111,6 +136,35 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], GaleryController.prototype, "imguser", null);
+__decorate([
+    (0, common_1.Post)('/insertphotoProd'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('images', 10, {
+        storage: (0, multer_1.diskStorage)({
+            destination: 'files/produc',
+            filename: (req, file, cb) => {
+                const randomName = Array(32)
+                    .fill(null)
+                    .map(() => Math.round(Math.random() * 16).toString(16))
+                    .join('');
+                cb(null, `${randomName}${(0, path_1.extname)(file.originalname)}`);
+            },
+        }),
+    })),
+    __param(0, (0, common_1.Body)('namProd')),
+    __param(1, (0, common_1.Body)('iduser')),
+    __param(2, (0, common_1.Body)('type')),
+    __param(3, (0, common_1.UploadedFiles)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Number, Number, Array]),
+    __metadata("design:returntype", Promise)
+], GaleryController.prototype, "insertphotoProd", null);
+__decorate([
+    (0, common_1.Get)('/infoImgProdus'),
+    __param(0, (0, common_1.Query)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], GaleryController.prototype, "imgproduc", null);
 exports.GaleryController = GaleryController = __decorate([
     (0, common_1.Controller)('chImages'),
     __metadata("design:paramtypes", [images_service_1.ImagesService])
