@@ -1,32 +1,29 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { CommonModule } from './common/common.module';
-import { AuthModule } from './auth/auth.module';
-
-import { CompanyModule } from './admin/company/company.module';
-import { StoreModule } from './admin/store/store.module';
-import { ProductModule } from './admin/product/product.module';
 import { CategoryModule } from './admin/category/category.module';
-
-import { MarketModule } from './client/market/market.module';
 import { CompanyCategoryModule } from './admin/company-category/company-category.module';
-import { HoursOperationModule } from './admin/hours-peration/hours-peration.module';
-import { PetitionModule } from './deliveryman/petition/petition.module';
-import { ChatModule } from './chat/chat.module';
-import { LocationWsModule } from './location-ws/location-ws.module';
-import { AddressModule } from './client/address/address.module';
-import { NotificationModule } from './notification/notification.module';
-import { BalanceModule } from './client/balance/balance.module';
-import { EmailModule } from './email/email.module';
-import { EnrollmentModule } from './manager/enrollment/enrollment.module';
-import { StoreManagerModule } from './manager/store-manager/store.manager.module';
-import { PaymentsModule } from './client/payments/payments.module';
+import { CompanyModule } from './admin/company/company.module';
 import { CreditModule } from './admin/credit/credit.module';
+import { HoursOperationModule } from './admin/hours-peration/hours-peration.module';
+import { ProductModule } from './admin/product/product.module';
+import { StoreModule } from './admin/store/store.module';
+import { AddressModule } from './client/address/address.module';
+import { BalanceModule } from './client/balance/balance.module';
+import { MarketModule } from './client/market/market.module';
+import { PaymentsModule } from './client/payments/payments.module';
+import { PetitionModule } from './deliveryman/petition/petition.module';
+import { EnrollmentModule } from './manager/enrollment/enrollment.module';
 import { RequestModule } from './manager/request/request.module';
-
+import { StoreManagerModule } from './manager/store-manager/store.manager.module';
+import { AuthModule } from './auth/auth.module';
+import { ChatModule } from './chat/chat.module';
+import { CommonModule } from './common/common.module';
+import { EmailModule } from './email/email.module';
+import { Images1Module } from './images/images.module'
+import { LocationWsModule } from './location-ws/location-ws.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -63,6 +60,7 @@ import { RequestModule } from './manager/request/request.module';
     PaymentsModule,
     CreditModule,
     RequestModule,
+    Images1Module,
   ],
   controllers: [],
   providers: [],

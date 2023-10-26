@@ -10,27 +10,28 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
-const common_module_1 = require("./common/common.module");
-const auth_module_1 = require("./auth/auth.module");
-const company_module_1 = require("./admin/company/company.module");
-const store_module_1 = require("./admin/store/store.module");
-const product_module_1 = require("./admin/product/product.module");
 const category_module_1 = require("./admin/category/category.module");
-const market_module_1 = require("./client/market/market.module");
 const company_category_module_1 = require("./admin/company-category/company-category.module");
-const hours_peration_module_1 = require("./admin/hours-peration/hours-peration.module");
-const petition_module_1 = require("./deliveryman/petition/petition.module");
-const chat_module_1 = require("./chat/chat.module");
-const location_ws_module_1 = require("./location-ws/location-ws.module");
-const address_module_1 = require("./client/address/address.module");
-const notification_module_1 = require("./notification/notification.module");
-const balance_module_1 = require("./client/balance/balance.module");
-const email_module_1 = require("./email/email.module");
-const enrollment_module_1 = require("./manager/enrollment/enrollment.module");
-const store_manager_module_1 = require("./manager/store-manager/store.manager.module");
-const payments_module_1 = require("./client/payments/payments.module");
+const company_module_1 = require("./admin/company/company.module");
 const credit_module_1 = require("./admin/credit/credit.module");
+const hours_peration_module_1 = require("./admin/hours-peration/hours-peration.module");
+const product_module_1 = require("./admin/product/product.module");
+const store_module_1 = require("./admin/store/store.module");
+const address_module_1 = require("./client/address/address.module");
+const balance_module_1 = require("./client/balance/balance.module");
+const market_module_1 = require("./client/market/market.module");
+const payments_module_1 = require("./client/payments/payments.module");
+const petition_module_1 = require("./deliveryman/petition/petition.module");
+const enrollment_module_1 = require("./manager/enrollment/enrollment.module");
 const request_module_1 = require("./manager/request/request.module");
+const store_manager_module_1 = require("./manager/store-manager/store.manager.module");
+const auth_module_1 = require("./auth/auth.module");
+const chat_module_1 = require("./chat/chat.module");
+const common_module_1 = require("./common/common.module");
+const email_module_1 = require("./email/email.module");
+const images_module_1 = require("./images/images.module");
+const location_ws_module_1 = require("./location-ws/location-ws.module");
+const notification_module_1 = require("./notification/notification.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -70,6 +71,7 @@ exports.AppModule = AppModule = __decorate([
             payments_module_1.PaymentsModule,
             credit_module_1.CreditModule,
             request_module_1.RequestModule,
+            images_module_1.Images1Module,
         ],
         controllers: [],
         providers: [],
