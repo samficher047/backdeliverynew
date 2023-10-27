@@ -1,6 +1,7 @@
 import { AuthModule } from 'src/auth/auth.module';
 import { Session } from 'src/auth/entities/session.entity';
 import { User } from 'src/auth/entities/user.entity';
+import { entityimagesDealers } from 'src/images/entities/dealers.entity'
 
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -15,7 +16,7 @@ import { ImagesService } from './images.service';
 @Module({
   controllers: [GaleryController],
   providers: [ImagesService],
-  imports: [TypeOrmModule.forFeature([Order, entityimages1,entityimagesUser, entityimagesProduc]), AuthModule]
+  imports: [TypeOrmModule.forFeature([Order, entityimages1,entityimagesUser, entityimagesProduc,entityimagesDealers]), AuthModule]
 
 })
 export class Images1Module { }

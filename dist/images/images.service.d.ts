@@ -1,3 +1,4 @@
+import { entityimagesDealers } from 'src/images/entities/dealers.entity';
 import { entityimages1 } from 'src/images/entities/images.entity';
 import { entityimagesUser } from 'src/images/entities/imagesUsers.entity';
 import { entityimagesProduc } from 'src/images/entities/imgProduc.entity';
@@ -6,7 +7,8 @@ export declare class ImagesService {
     private readonly conectimages1;
     private readonly connectimages2;
     private readonly connectImgProduc;
-    constructor(conectimages1: Repository<entityimages1>, connectimages2: Repository<entityimagesUser>, connectImgProduc: Repository<entityimagesProduc>);
+    private readonly connectImgDeal;
+    constructor(conectimages1: Repository<entityimages1>, connectimages2: Repository<entityimagesUser>, connectImgProduc: Repository<entityimagesProduc>, connectImgDeal: Repository<entityimagesDealers>);
     infoimg(idimge: any): Promise<any>;
     insertReg(name: any, filename: any, path: any, size: any, originalname: any): Promise<any>;
     insertRegUser(id_user: any, filename: any, path: any, size: any, originalname: any, type: any): Promise<any>;
@@ -14,4 +16,6 @@ export declare class ImagesService {
     insertRegProduc(name_prod: any, originalName: any, filename: any, rute: any, size: any, id_user: any, type_user: any, key_group: any): Promise<any>;
     infoimgProduc(idimge: any): Promise<any>;
     infoimgProduc2(idimge: any): Promise<any>;
+    insertRegDeal(id_deliv: any, code_deliv: any, name_deliv: any, namefile: any, name_original: any, rute: any, size: any, id_company: any, type_com: any): Promise<any>;
+    infoimgDeal(idimge: any): Promise<any>;
 }
