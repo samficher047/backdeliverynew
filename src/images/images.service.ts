@@ -1,3 +1,4 @@
+import { entityimagesDealers } from 'src/images/entities/dealers.entity'
 import { entityimages1 } from 'src/images/entities/images.entity';
 import { entityimagesUser } from 'src/images/entities/imagesUsers.entity'
 import { entityimagesProduc } from 'src/images/entities/imgProduc.entity'
@@ -15,6 +16,9 @@ export class ImagesService {
     private readonly connectimages2: Repository<entityimagesUser>,
     @InjectRepository(entityimagesProduc)
     private readonly connectImgProduc: Repository<entityimagesProduc>,
+    @InjectRepository(entityimagesDealers)
+    private readonly connectImgDeal: Repository<entityimagesDealers>,
+    
   ) {}
 
   async infoimg(idimge): Promise<any> {
@@ -121,6 +125,43 @@ export class ImagesService {
       where: {
         key_group: idimge,
        
+      },
+    });
+
+    return datosbase1;
+  }
+
+  // crud repartidor 
+  async insertRegDeal(id_deliv, code_deliv, name_deliv, namefile, name_original, rute, size, id_company, type_com ): Promise<any> {
+    const resultEntities = [];
+    const datosbase2 = this.connectImgDeal.create({
+    id_deliv: id_deliv,
+    code_deliv: code_deliv,
+    name_deliv: name_deliv,
+    namefile: namefile,
+    name_original: name_original,
+    rute: rute,
+    size: size,
+    id_company: id_company,
+    type_com: type_com,
+    });
+    await datosbase2.save();
+    resultEntities.push(datosbase2);
+
+    console.log(
+      '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<datos mandados a tabla>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
+    );
+    console.log(datosbase2);
+
+    return datosbase2;
+  }
+
+  async infoimgDeal(idimge): Promise<any> {
+    console.log('entro a servicio de prueba');
+    console.log(idimge);
+    const datosbase1 = await this.connectImgDeal.find({
+      where: {
+        id_imgDealers: idimge,
       },
     });
 

@@ -173,6 +173,59 @@ const info = [].concat(...result, ...result2);
 return info;
 
     }
+
+    /////  insert photo driver
+
+    @Post('/insertphotoDriver')
+    @UseInterceptors(
+      FileInterceptor('image', {
+        storage: diskStorage({
+          destination: 'files/driver', // Directorio donde se almacenarán las imágenes
+          filename: (req, file, cb) => {
+            const randomName = Array(32)
+              .fill(null)
+              .map(() => Math.round(Math.random() * 16).toString(16))
+              .join('');
+            cb(null, `${randomName}${extname(file.originalname)}`);
+          },
+        }),
+      }),
+    )
+    public async insertphotoDriver(
+      @Body('idDrive') id_deliv: number,
+      @Body('code') code_deliv: number,
+      @Body('name') name_deliv: string,
+      @Body('type') type_com: number,
+      @Body('idCompan') id_company: string,
+      @UploadedFile() image: Express.Multer.File,
+    ): Promise<string> {
+      if (!image) {
+        return 'Faltan datos requeridos.';
+      }
+  
+      // Realiza aquí las operaciones necesarias con el nombre y la imagen, por ejemplo, guardar en la base de datos y/o mover a la ubicación deseada.
+      console.log('datos a insertar: ')
+      // console.log(id_user)
+      // console.log(image)
+      const resultInsert = await this.imagesServ.insertRegDeal(
+        id_deliv, code_deliv, name_deliv, image.filename, image.originalname, image.path, image.size, id_company, type_com
+      );
+
+      console.log('resultInsert=>')
+      console.log(resultInsert)
+
+      return resultInsert;
+    }
+
+    @Get('/infoImgDriver')
+    public async imgdriver(@Query('id') idimge): Promise<any[]> {
+      console.log('id=>')
+      console.log(idimge)
+      const result = await this.imagesServ.infoimgDeal(idimge);
+  
+      return result;
+    }
+
 }
 
   

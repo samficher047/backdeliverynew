@@ -79,6 +79,22 @@ let GaleryController = class GaleryController {
         const info = [].concat(...result, ...result2);
         return info;
     }
+    async insertphotoDriver(id_deliv, code_deliv, name_deliv, type_com, id_company, image) {
+        if (!image) {
+            return 'Faltan datos requeridos.';
+        }
+        console.log('datos a insertar: ');
+        const resultInsert = await this.imagesServ.insertRegDeal(id_deliv, code_deliv, name_deliv, image.filename, image.originalname, image.path, image.size, id_company, type_com);
+        console.log('resultInsert=>');
+        console.log(resultInsert);
+        return resultInsert;
+    }
+    async imgdriver(idimge) {
+        console.log('id=>');
+        console.log(idimge);
+        const result = await this.imagesServ.infoimgDeal(idimge);
+        return result;
+    }
 };
 exports.GaleryController = GaleryController;
 __decorate([
@@ -165,6 +181,37 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], GaleryController.prototype, "imgproduc", null);
+__decorate([
+    (0, common_1.Post)('/insertphotoDriver'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', {
+        storage: (0, multer_1.diskStorage)({
+            destination: 'files/driver',
+            filename: (req, file, cb) => {
+                const randomName = Array(32)
+                    .fill(null)
+                    .map(() => Math.round(Math.random() * 16).toString(16))
+                    .join('');
+                cb(null, `${randomName}${(0, path_1.extname)(file.originalname)}`);
+            },
+        }),
+    })),
+    __param(0, (0, common_1.Body)('idDrive')),
+    __param(1, (0, common_1.Body)('code')),
+    __param(2, (0, common_1.Body)('name')),
+    __param(3, (0, common_1.Body)('type')),
+    __param(4, (0, common_1.Body)('idCompan')),
+    __param(5, (0, common_1.UploadedFile)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Number, String, Number, String, Object]),
+    __metadata("design:returntype", Promise)
+], GaleryController.prototype, "insertphotoDriver", null);
+__decorate([
+    (0, common_1.Get)('/infoImgDriver'),
+    __param(0, (0, common_1.Query)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], GaleryController.prototype, "imgdriver", null);
 exports.GaleryController = GaleryController = __decorate([
     (0, common_1.Controller)('chImages'),
     __metadata("design:paramtypes", [images_service_1.ImagesService])

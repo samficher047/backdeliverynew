@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Images1Module = void 0;
 const auth_module_1 = require("../auth/auth.module");
+const dealers_entity_1 = require("./entities/dealers.entity");
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const order_entity_1 = require("../client/market/entities/order.entity");
@@ -23,7 +24,7 @@ exports.Images1Module = Images1Module = __decorate([
     (0, common_1.Module)({
         controllers: [images_controller_1.GaleryController],
         providers: [images_service_1.ImagesService],
-        imports: [typeorm_1.TypeOrmModule.forFeature([order_entity_1.Order, images_entity_1.entityimages1, imagesUsers_entity_1.entityimagesUser, imgProduc_entity_1.entityimagesProduc]), auth_module_1.AuthModule]
+        imports: [typeorm_1.TypeOrmModule.forFeature([order_entity_1.Order, images_entity_1.entityimages1, imagesUsers_entity_1.entityimagesUser, imgProduc_entity_1.entityimagesProduc, dealers_entity_1.entityimagesDealers]), auth_module_1.AuthModule]
     })
 ], Images1Module);
 //# sourceMappingURL=images.module.js.map
