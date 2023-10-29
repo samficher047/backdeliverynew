@@ -111,7 +111,7 @@ let GaleryController = class GaleryController {
         });
         console.log("modifiedResponse=>");
         console.log(modifiedResponse);
-        return result;
+        return modifiedResponse;
     }
 };
 exports.GaleryController = GaleryController;
