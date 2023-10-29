@@ -93,6 +93,24 @@ let GaleryController = class GaleryController {
         console.log('id=>');
         console.log(idimge);
         const result = await this.imagesServ.infoimgDeal(idimge);
+        const originalPath = result[0].rute;
+        console.log("modifiedPath=>");
+        const parts = originalPath.split('\\');
+        const modifiedPath = '/' + parts.join('/');
+        const finalPath = modifiedPath.replace('/files/', '/images/');
+        console.log("finalPath=>");
+        console.log(finalPath);
+        const modifiedResponse = result.map(item => {
+            const modifiedRute = item.rute
+                .replace(/\\/g, '/')
+                .replace(/^files\//, '/images/');
+            return {
+                ...item,
+                "rute": modifiedRute,
+            };
+        });
+        console.log("modifiedResponse=>");
+        console.log(modifiedResponse);
         return result;
     }
 };
