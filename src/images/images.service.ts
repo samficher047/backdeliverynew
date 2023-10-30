@@ -1,7 +1,7 @@
-import { entityimagesDealers } from 'src/images/entities/dealers.entity'
+import { entityimagesDealers } from 'src/images/entities/dealers.entity';
 import { entityimages1 } from 'src/images/entities/images.entity';
-import { entityimagesUser } from 'src/images/entities/imagesUsers.entity'
-import { entityimagesProduc } from 'src/images/entities/imgProduc.entity'
+import { entityimagesUser } from 'src/images/entities/imagesUsers.entity';
+import { entityimagesProduc } from 'src/images/entities/imgProduc.entity';
 import { Repository, getRepository } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
@@ -18,7 +18,6 @@ export class ImagesService {
     private readonly connectImgProduc: Repository<entityimagesProduc>,
     @InjectRepository(entityimagesDealers)
     private readonly connectImgDeal: Repository<entityimagesDealers>,
-    
   ) {}
 
   async infoimg(idimge): Promise<any> {
@@ -33,7 +32,7 @@ export class ImagesService {
     return datosbase1;
   }
 
-  async insertReg(name, filename, path, size, originalname ): Promise<any> {
+  async insertReg(name, filename, path, size, originalname): Promise<any> {
     const resultEntities = [];
     const datosbase2 = this.conectimages1.create({
       rute: path,
@@ -48,17 +47,24 @@ export class ImagesService {
 
     return datosbase2;
   }
- 
-  async insertRegUser(id_user, filename, path, size, originalname, type ): Promise<any> {
+
+  async insertRegUser(
+    id_user,
+    filename,
+    path,
+    size,
+    originalname,
+    type,
+  ): Promise<any> {
     const resultEntities = [];
     const datosbase2 = this.connectimages2.create({
       id_imgUser: id_user,
       originalName: originalname,
-    filename: filename,
-    rute: path,
-    size: size,
-    id_user: id_user,
-    type_user: type,
+      filename: filename,
+      rute: path,
+      size: size,
+      id_user: id_user,
+      type_user: type,
     });
     await datosbase2.save();
     resultEntities.push(datosbase2);
@@ -83,17 +89,26 @@ export class ImagesService {
     return datosbase1;
   }
 
-  async insertRegProduc(name_prod, originalName, filename, rute, size, id_user, type_user, key_group ): Promise<any> {
+  async insertRegProduc(
+    name_prod,
+    originalName,
+    filename,
+    rute,
+    size,
+    id_user,
+    type_user,
+    key_group,
+  ): Promise<any> {
     const resultEntities = [];
     const datosbase2 = this.connectImgProduc.create({
       name_prod: name_prod,
       originalName: originalName,
-    filename: filename,
-    rute: rute,
-    size: size,
-    id_user: id_user,
-    type_user: type_user,
-    key_group: key_group,
+      filename: filename,
+      rute: rute,
+      size: size,
+      id_user: id_user,
+      type_user: type_user,
+      key_group: key_group,
     });
     await datosbase2.save();
     resultEntities.push(datosbase2);
@@ -112,7 +127,6 @@ export class ImagesService {
     const datosbase1 = await this.connectImgProduc.find({
       where: {
         id_imgProduc: idimge,
-       
       },
     });
 
@@ -124,26 +138,35 @@ export class ImagesService {
     const datosbase1 = await this.connectImgProduc.find({
       where: {
         key_group: idimge,
-       
       },
     });
 
     return datosbase1;
   }
 
-  // crud repartidor 
-  async insertRegDeal(id_deliv, code_deliv, name_deliv, namefile, name_original, rute, size, id_company, type_com ): Promise<any> {
+  // crud repartidor
+  async insertRegDeal(
+    id_deliv,
+    code_deliv,
+    name_deliv,
+    namefile,
+    name_original,
+    rute,
+    size,
+    id_company,
+    type_com,
+  ): Promise<any> {
     const resultEntities = [];
     const datosbase2 = this.connectImgDeal.create({
-    id_deliv: id_deliv,
-    code_deliv: code_deliv,
-    name_deliv: name_deliv,
-    namefile: namefile,
-    name_original: name_original,
-    rute: rute,
-    size: size,
-    id_company: id_company,
-    type_com: type_com,
+      id_deliv: id_deliv,
+      code_deliv: code_deliv,
+      name_deliv: name_deliv,
+      namefile: namefile,
+      name_original: name_original,
+      rute: rute,
+      size: size,
+      id_company: id_company,
+      type_com: type_com,
     });
     await datosbase2.save();
     resultEntities.push(datosbase2);
