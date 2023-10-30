@@ -303,7 +303,7 @@ export class GaleryController {
     }
 
     console.log('datos a insertar: ');
-    const rute = '/images/driver/' + image.filename;
+    const rute = '/images/users/' + image.filename;
     const info = [];
 
     const resultInsert = await this.imagesServ.insertRegUser(
