@@ -1,11 +1,11 @@
-import { Balance } from "src/client/balance/entities/balance.entity";
+import { Company } from "src/admin/company/entities/company.entity";
+import { Credit } from "src/admin/credit/entities/credit.entity";
 import { Store } from "src/admin/store/entities/store.entity";
 import { Session } from "src/auth/entities/session.entity";
+import { Balance } from "src/client/balance/entities/balance.entity";
 import { Order } from "src/client/market/entities/order.entity";
 import { Product } from '../../admin/product/entities/product.entity';
 import { Chat } from '../../chat/entities/chat.entity';
-import { Company } from "src/admin/company/entities/company.entity";
-import { Credit } from "src/admin/credit/entities/credit.entity";
 export declare class User {
     id: number;
     idGoogle: string;

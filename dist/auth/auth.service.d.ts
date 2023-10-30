@@ -1,14 +1,14 @@
-import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
-import { Session } from './entities/session.entity';
-import { UpdateTokenPushDto } from './dto/update-token-push.dto';
-import { GoogleUserDto } from './dto/google-user.dto';
+import { JwtService } from '@nestjs/jwt';
 import { EmailService } from '../email/email.service';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { GoogleUserDto } from './dto/google-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { PasswordUserDto } from './dto/password-user.dto';
+import { UpdateTokenPushDto } from './dto/update-token-push.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { Session } from './entities/session.entity';
+import { User } from './entities/user.entity';
 export declare class AuthService {
     private readonly userRepository;
     private readonly sessionRepository;
@@ -72,6 +72,8 @@ export declare class AuthService {
             sessions?: Session[];
         };
     }>;
+    updateregister(id: any, rol: any): Promise<any>;
+    inforegister(date: any): Promise<any>;
     login(loginUserDto: LoginUserDto): Promise<{
         token: string;
         id: number;

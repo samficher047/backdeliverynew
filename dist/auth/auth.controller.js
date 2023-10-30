@@ -13,17 +13,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
-const user_entity_1 = require("./entities/user.entity");
-const login_user_dto_1 = require("./dto/login-user.dto");
+const common_1 = require("@nestjs/common");
+const auth_decorator_1 = require("./decorators/auth.decorator");
 const get_user_decorator_1 = require("./decorators/get-user.decorator");
 const create_user_dto_1 = require("./dto/create-user.dto");
-const common_1 = require("@nestjs/common");
-const auth_service_1 = require("./auth.service");
-const auth_decorator_1 = require("./decorators/auth.decorator");
-const update_token_push_dto_1 = require("./dto/update-token-push.dto");
 const google_user_dto_1 = require("./dto/google-user.dto");
-const update_user_dto_1 = require("./dto/update-user.dto");
+const login_user_dto_1 = require("./dto/login-user.dto");
 const password_user_dto_1 = require("./dto/password-user.dto");
+const update_token_push_dto_1 = require("./dto/update-token-push.dto");
+const update_user_dto_1 = require("./dto/update-user.dto");
+const user_entity_1 = require("./entities/user.entity");
+const auth_service_1 = require("./auth.service");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -34,8 +34,11 @@ let AuthController = class AuthController {
     recoverAccount(email) {
         return this.authService.recoverAccount(email);
     }
-    register(createUserDto) {
-        return this.authService.register(createUserDto);
+    async register(createUserDto) {
+        const result1 = await this.authService.register(createUserDto);
+        const result2 = await this.authService.updateregister(result1.user.id, createUserDto.rol);
+        const result3 = this.authService.inforegister(result1.user.id);
+        return result3;
     }
     update(user, updateUserDto) {
         return this.authService.update(user, updateUserDto);
@@ -76,7 +79,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
 __decorate([
     (0, common_1.Patch)('update'),

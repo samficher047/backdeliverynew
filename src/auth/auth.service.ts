@@ -1,20 +1,22 @@
+import * as bcrypt from 'bcrypt';
+import handleDbExceptions from "src/common/exceptions/error.db.exception";
+import { ErrorCode } from 'src/common/glob/error';
+import { Repository } from 'typeorm';
+
 import { Injectable, Logger, UnauthorizedException, BadRequestException, Inject } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import * as bcrypt from 'bcrypt';
+
+import { EmailService } from '../email/email.service';
+import { CreateUserDto } from './dto/create-user.dto';
+import { GoogleUserDto } from './dto/google-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
+import { PasswordUserDto } from './dto/password-user.dto';
+import { UpdateTokenPushDto } from './dto/update-token-push.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { Session } from './entities/session.entity';
 import { User } from './entities/user.entity';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
-import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
-import handleDbExceptions from "src/common/exceptions/error.db.exception";
-import { Session } from './entities/session.entity';
-import { UpdateTokenPushDto } from './dto/update-token-push.dto';
-import { ErrorCode } from 'src/common/glob/error';
-import { GoogleUserDto } from './dto/google-user.dto';
-import { EmailService } from '../email/email.service';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { PasswordUserDto } from './dto/password-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -69,11 +71,15 @@ export class AuthService {
 
     const { password, tokenPush, ...userData } = createUserDto;
 
+    console.log("userData=>")
+    console.log(userData)
+    
     const verification = await this.userRepository.createQueryBuilder("us")
       .andWhere("(us.email = :emal OR us.phone = :phone)")
       .setParameters({ emal: userData.email, phone: userData.phone }).getOne();
 
     if (verification) {
+
       if (verification['email'] === userData.email) {
         throw new BadRequestException({ codeError: ErrorCode.EMAILUNIQUE });
       } else if (verification['phone'] === userData.phone) {
@@ -84,16 +90,51 @@ export class AuthService {
     }
 
     try {
+
       const user = this.userRepository.create({ ...userData, password: bcrypt.hashSync(password, 3) });
+      console.log("user=>")
+      console.log(user)
       await this.userRepository.save(user)
 
       await this._saveSession(user, userData.idDevice, tokenPush);
 
       delete user.password;
+      
+      const result1 = { user: { ...user, token: this._getJwtToken({ id: user.id, email: user.email, idDevice: userData.idDevice }) } }
+      
       return { user: { ...user, token: this._getJwtToken({ id: user.id, email: user.email, idDevice: userData.idDevice }) } };
     } catch (error) {
       handleDbExceptions(error, this.logger);
     }
+  }
+
+  async updateregister(id , rol):   
+  Promise<any> {
+    
+    const datosbase1 = await this.userRepository.update(
+      { id: id },
+      {
+        roles: [rol],
+      },
+    );
+
+    console.log(
+      '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<registro actualizado de zona>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',
+    );
+    console.log(datosbase1);
+
+    return datosbase1;
+  }
+  
+  async inforegister(date): Promise<any> {
+    console.log(date);
+    const datosbase2 = await this.userRepository.find({
+      where: {
+        id: date,
+      },
+    });
+
+    return datosbase2;
   }
 
   async login(loginUserDto: LoginUserDto) {

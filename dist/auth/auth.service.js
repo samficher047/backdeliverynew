@@ -13,16 +13,16 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
+const bcrypt = require("bcrypt");
+const error_db_exception_1 = require("../common/exceptions/error.db.exception");
+const error_1 = require("../common/glob/error");
+const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
-const typeorm_1 = require("@nestjs/typeorm");
-const typeorm_2 = require("typeorm");
-const bcrypt = require("bcrypt");
-const user_entity_1 = require("./entities/user.entity");
-const error_db_exception_1 = require("../common/exceptions/error.db.exception");
-const session_entity_1 = require("./entities/session.entity");
-const error_1 = require("../common/glob/error");
+const typeorm_2 = require("@nestjs/typeorm");
 const email_service_1 = require("../email/email.service");
+const session_entity_1 = require("./entities/session.entity");
+const user_entity_1 = require("./entities/user.entity");
 let AuthService = class AuthService {
     constructor(userRepository, sessionRepository, emailServiceService, jwtService) {
         this.userRepository = userRepository;
@@ -57,6 +57,8 @@ let AuthService = class AuthService {
     }
     async register(createUserDto) {
         const { password, tokenPush, ...userData } = createUserDto;
+        console.log("userData=>");
+        console.log(userData);
         const verification = await this.userRepository.createQueryBuilder("us")
             .andWhere("(us.email = :emal OR us.phone = :phone)")
             .setParameters({ emal: userData.email, phone: userData.phone }).getOne();
@@ -73,14 +75,34 @@ let AuthService = class AuthService {
         }
         try {
             const user = this.userRepository.create({ ...userData, password: bcrypt.hashSync(password, 3) });
+            console.log("user=>");
+            console.log(user);
             await this.userRepository.save(user);
             await this._saveSession(user, userData.idDevice, tokenPush);
             delete user.password;
+            const result1 = { user: { ...user, token: this._getJwtToken({ id: user.id, email: user.email, idDevice: userData.idDevice }) } };
             return { user: { ...user, token: this._getJwtToken({ id: user.id, email: user.email, idDevice: userData.idDevice }) } };
         }
         catch (error) {
             (0, error_db_exception_1.default)(error, this.logger);
         }
+    }
+    async updateregister(id, rol) {
+        const datosbase1 = await this.userRepository.update({ id: id }, {
+            roles: [rol],
+        });
+        console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<registro actualizado de zona>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+        console.log(datosbase1);
+        return datosbase1;
+    }
+    async inforegister(date) {
+        console.log(date);
+        const datosbase2 = await this.userRepository.find({
+            where: {
+                id: date,
+            },
+        });
+        return datosbase2;
     }
     async login(loginUserDto) {
         const { password, email, idDevice, tokenPush } = loginUserDto;
@@ -206,11 +228,11 @@ let AuthService = class AuthService {
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __param(1, (0, typeorm_1.InjectRepository)(session_entity_1.Session)),
+    __param(0, (0, typeorm_2.InjectRepository)(user_entity_1.User)),
+    __param(1, (0, typeorm_2.InjectRepository)(session_entity_1.Session)),
     __param(2, (0, common_1.Inject)(email_service_1.EmailService)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository,
+    __metadata("design:paramtypes", [typeorm_1.Repository,
+        typeorm_1.Repository,
         email_service_1.EmailService,
         jwt_1.JwtService])
 ], AuthService);
