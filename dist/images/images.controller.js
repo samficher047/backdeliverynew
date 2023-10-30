@@ -84,7 +84,7 @@ let GaleryController = class GaleryController {
             return 'Faltan datos requeridos.';
         }
         console.log('datos a insertar: ');
-        let rute = '/images/driver/' + image.filename;
+        const rute = '/images/driver/' + image.filename;
         const info = [];
         const resultInsert = await this.imagesServ.insertRegDeal(id_deliv, code_deliv, name_deliv, image.filename, image.originalname, rute, image.size, id_company, type_com);
         console.log(image.filename);
@@ -100,24 +100,40 @@ let GaleryController = class GaleryController {
         console.log(idimge);
         const result = await this.imagesServ.infoimgDeal(idimge);
         const originalPath = result[0].rute;
-        console.log("modifiedPath=>");
+        console.log('modifiedPath=>');
         const parts = originalPath.split('\\');
         const modifiedPath = '/' + parts.join('/');
         const finalPath = modifiedPath.replace('/files/', '/images/');
-        console.log("finalPath=>");
+        console.log('finalPath=>');
         console.log(finalPath);
-        const modifiedResponse = result.map(item => {
+        const modifiedResponse = result.map((item) => {
             const modifiedRute = item.rute
                 .replace(/\\/g, '/')
                 .replace(/^files\//, '/images/');
             return {
                 ...item,
-                "rute": modifiedRute,
+                rute: modifiedRute,
             };
         });
-        console.log("modifiedResponse=>");
+        console.log('modifiedResponse=>');
         console.log(modifiedResponse);
         return modifiedResponse;
+    }
+    async insertphotoUserfixedup(id_user, type, image) {
+        if (!image) {
+            return 'Faltan datos requeridos.';
+        }
+        console.log('datos a insertar: ');
+        const rute = '/images/driver/' + image.filename;
+        const info = [];
+        const resultInsert = await this.imagesServ.insertRegUser(id_user, image.filename, rute, image.size, image.originalname, type);
+        console.log(image.filename);
+        const item = {
+            id_regis: resultInsert.id_imgDealers,
+            rute: rute,
+        };
+        info.push(item);
+        return item;
     }
 };
 exports.GaleryController = GaleryController;
@@ -236,6 +252,27 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], GaleryController.prototype, "imgdriver", null);
+__decorate([
+    (0, common_1.Post)('/insertphotouserfixedup'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', {
+        storage: (0, multer_1.diskStorage)({
+            destination: 'files/users',
+            filename: (req, file, cb) => {
+                const randomName = Array(32)
+                    .fill(null)
+                    .map(() => Math.round(Math.random() * 16).toString(16))
+                    .join('');
+                cb(null, `${randomName}${(0, path_1.extname)(file.originalname)}`);
+            },
+        }),
+    })),
+    __param(0, (0, common_1.Body)('iduser')),
+    __param(1, (0, common_1.Body)('type')),
+    __param(2, (0, common_1.UploadedFile)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Number, Object]),
+    __metadata("design:returntype", Promise)
+], GaleryController.prototype, "insertphotoUserfixedup", null);
 exports.GaleryController = GaleryController = __decorate([
     (0, common_1.Controller)('chImages'),
     __metadata("design:paramtypes", [images_service_1.ImagesService])

@@ -24,7 +24,16 @@ exports.Images1Module = Images1Module = __decorate([
     (0, common_1.Module)({
         controllers: [images_controller_1.GaleryController],
         providers: [images_service_1.ImagesService],
-        imports: [typeorm_1.TypeOrmModule.forFeature([order_entity_1.Order, images_entity_1.entityimages1, imagesUsers_entity_1.entityimagesUser, imgProduc_entity_1.entityimagesProduc, dealers_entity_1.entityimagesDealers]), auth_module_1.AuthModule]
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([
+                order_entity_1.Order,
+                images_entity_1.entityimages1,
+                imagesUsers_entity_1.entityimagesUser,
+                imgProduc_entity_1.entityimagesProduc,
+                dealers_entity_1.entityimagesDealers,
+            ]),
+            auth_module_1.AuthModule,
+        ],
     })
 ], Images1Module);
 //# sourceMappingURL=images.module.js.map
