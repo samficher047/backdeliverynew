@@ -11,17 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const class_validator_1 = require("class-validator");
-const balance_entity_1 = require("../../client/balance/entities/balance.entity");
+const company_entity_1 = require("../../admin/company/entities/company.entity");
+const credit_entity_1 = require("../../admin/credit/entities/credit.entity");
 const store_entity_1 = require("../../admin/store/entities/store.entity");
 const session_entity_1 = require("./session.entity");
 const address_entity_1 = require("../../client/address/entities/address.entity");
+const balance_entity_1 = require("../../client/balance/entities/balance.entity");
 const order_entity_1 = require("../../client/market/entities/order.entity");
+const payment_entity_1 = require("../../client/payments/entities/payment.entity");
 const typeorm_1 = require("typeorm");
 const product_entity_1 = require("../../admin/product/entities/product.entity");
 const chat_entity_1 = require("../../chat/entities/chat.entity");
-const company_entity_1 = require("../../admin/company/entities/company.entity");
-const payment_entity_1 = require("../../client/payments/entities/payment.entity");
-const credit_entity_1 = require("../../admin/credit/entities/credit.entity");
 let User = class User {
 };
 exports.User = User;
@@ -63,7 +63,7 @@ __decorate([
     __metadata("design:type", Boolean)
 ], User.prototype, "isActive", void 0);
 __decorate([
-    (0, typeorm_1.Column)('text', { array: true, default: ['client'] }),
+    (0, typeorm_1.Column)('text', { array: true, default: [undefined] }),
     __metadata("design:type", Array)
 ], User.prototype, "roles", void 0);
 __decorate([

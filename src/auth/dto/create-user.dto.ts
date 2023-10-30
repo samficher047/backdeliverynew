@@ -27,4 +27,8 @@ export class CreateUserDto {
 
     @IsOptional()
     tokenPush: string;
+
+    @IsString()
+    @IsOptional()
+    rol: string;
 }

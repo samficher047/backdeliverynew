@@ -84,10 +84,16 @@ let GaleryController = class GaleryController {
             return 'Faltan datos requeridos.';
         }
         console.log('datos a insertar: ');
-        const resultInsert = await this.imagesServ.insertRegDeal(id_deliv, code_deliv, name_deliv, image.filename, image.originalname, image.path, image.size, id_company, type_com);
-        console.log('resultInsert=>');
-        console.log(resultInsert);
-        return resultInsert;
+        let rute = '/images/driver/' + image.filename;
+        const info = [];
+        const resultInsert = await this.imagesServ.insertRegDeal(id_deliv, code_deliv, name_deliv, image.filename, image.originalname, rute, image.size, id_company, type_com);
+        console.log(image.filename);
+        const item = {
+            id_regis: resultInsert.id_imgDealers,
+            rute: rute,
+        };
+        info.push(item);
+        return item;
     }
     async imgdriver(idimge) {
         console.log('id=>');

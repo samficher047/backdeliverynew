@@ -1,15 +1,16 @@
 import { IsPositive } from "class-validator";
-import { Balance } from "src/client/balance/entities/balance.entity";
+import { Company } from "src/admin/company/entities/company.entity";
+import { Credit } from "src/admin/credit/entities/credit.entity";
 import { Store } from "src/admin/store/entities/store.entity";
 import { Session } from "src/auth/entities/session.entity";
 import { Address } from "src/client/address/entities/address.entity";
+import { Balance } from "src/client/balance/entities/balance.entity";
 import { Order } from "src/client/market/entities/order.entity";
+import { Payment } from "src/client/payments/entities/payment.entity";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+
 import { Product } from '../../admin/product/entities/product.entity';
 import { Chat } from '../../chat/entities/chat.entity';
-import { Company } from "src/admin/company/entities/company.entity";
-import { Payment } from "src/client/payments/entities/payment.entity";
-import { Credit } from "src/admin/credit/entities/credit.entity";
 
 @Entity()
 export class User {
@@ -42,7 +43,7 @@ export class User {
     @Column('bool', { default: true })
     isActive: boolean;
 
-    @Column('text', { array: true, default: ['client'] })
+    @Column('text', { array: true, default: [undefined] })
     roles: string[];
 
     @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })

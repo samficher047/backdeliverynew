@@ -8,17 +8,17 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
   @Controller('chImages')
   export class GaleryController {
     constructor(private imagesServ: ImagesService) {}
-  
+
     @Get('/infoImg')
     public async events(@Query('id') idimge): Promise<any[]> {
       console.log('id=>')
       console.log(idimge)
       const result = await this.imagesServ.infoimg(idimge);
-  
+
       return result;
     }
 
-    // test insert image 
+    // test insert image
     @Post('/insertphoto')
     @UseInterceptors(
       FileInterceptor('image', {
@@ -41,7 +41,7 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
       if (!name || !image) {
         return 'Faltan datos requeridos.';
       }
-  
+
       // Realiza aquí las operaciones necesarias con el nombre y la imagen, por ejemplo, guardar en la base de datos y/o mover a la ubicación deseada.
       console.log('datos a insertar: ')
       console.log(name)
@@ -81,7 +81,7 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
       if (!id_user || !image) {
         return 'Faltan datos requeridos.';
       }
-  
+
       // Realiza aquí las operaciones necesarias con el nombre y la imagen, por ejemplo, guardar en la base de datos y/o mover a la ubicación deseada.
       console.log('datos a insertar: ')
       console.log(id_user)
@@ -103,7 +103,7 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
       console.log('id=>')
       console.log(idimge)
       const result = await this.imagesServ.infoimgUser(idimge);
-  
+
       return result;
     }
 
@@ -135,7 +135,7 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
      if (!images || images.length === 0) {
        return 'Faltan datos requeridos.';
      }
-  
+
       // Realiza aquí las operaciones necesarias con el nombre y la imagen, por ejemplo, guardar en la base de datos y/o mover a la ubicación deseada.
       console.log('datos a insertar: ')
       console.log(id_user)
@@ -198,24 +198,34 @@ return info;
       @Body('type') type_com: number,
       @Body('idCompan') id_company: string,
       @UploadedFile() image: Express.Multer.File,
-    ): Promise<string> {
+    ): Promise<any> {
       if (!image) {
         return 'Faltan datos requeridos.';
       }
-  
+
       // Realiza aquí las operaciones necesarias con el nombre y la imagen, por ejemplo, guardar en la base de datos y/o mover a la ubicación deseada.
       console.log('datos a insertar: ')
       // console.log(id_user)
       // console.log(image)
+      let rute = '/images/driver/'+ image.filename
+      const info = []
+
+      
       const resultInsert = await this.imagesServ.insertRegDeal(
-        id_deliv, code_deliv, name_deliv, image.filename, image.originalname, image.path, image.size, id_company, type_com
+        id_deliv, code_deliv, name_deliv, image.filename, image.originalname, rute, image.size, id_company, type_com
       );
 
-      console.log('resultInsert=>')
-      console.log(resultInsert)
+      console.log(image.filename)
+      const item = {
+        id_regis: resultInsert.id_imgDealers,
+        rute: rute,           // Asignar la ruta
+      };
+      info.push(item);
 
-      return resultInsert;
+      return item;
     }
+
+
 
     @Get('/infoImgDriver')
     public async imgdriver(@Query('id') idimge): Promise<any[]> {
@@ -230,14 +240,14 @@ return info;
 
       console.log("modifiedPath=>")
 
-      
+
       const parts = originalPath.split('\\');
 
       const modifiedPath = '/' + parts.join('/');
 
       // Reemplazamos "files" por "images" en la cadena modificada
       const finalPath = modifiedPath.replace('/files/', '/images/');
-      
+
       console.log("finalPath=>");
       console.log(finalPath);
 
@@ -247,22 +257,21 @@ return info;
 
       const modifiedResponse = result.map(item => {
         const modifiedRute = item.rute
-            .replace(/\\/g, '/') 
-            .replace(/^files\//, '/images/'); 
-    
+            .replace(/\\/g, '/')
+            .replace(/^files\//, '/images/');
+
         return {
             ...item,
             "rute": modifiedRute,
         };
     });
-    
+
     console.log("modifiedResponse=>");
     console.log(modifiedResponse);
-  
+
       return modifiedResponse;
-      
+
     }
 
 }
 
-  

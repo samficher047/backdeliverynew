@@ -6,4 +6,5 @@ export declare class CreateUserDto {
     image?: string;
     idDevice: string;
     tokenPush: string;
+    rol: string;
 }
