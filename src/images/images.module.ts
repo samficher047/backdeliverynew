@@ -12,6 +12,7 @@ import { entityimagesUser } from './entities/imagesUsers.entity';
 import { entityimagesProduc } from './entities/imgProduc.entity';
 import { GaleryController } from './images.controller';
 import { ImagesService } from './images.service';
+import { entityimagesMarket } from './entities/imagesMarkets.entity';
 
 @Module({
   controllers: [GaleryController],
@@ -23,6 +24,7 @@ import { ImagesService } from './images.service';
       entityimagesUser,
       entityimagesProduc,
       entityimagesDealers,
+      entityimagesMarket,
     ]),
     AuthModule,
   ],

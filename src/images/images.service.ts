@@ -6,6 +6,7 @@ import { Repository, getRepository } from 'typeorm';
 
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { entityimagesMarket } from './entities/imagesMarkets.entity';
 
 @Injectable()
 export class ImagesService {
@@ -18,6 +19,8 @@ export class ImagesService {
     private readonly connectImgProduc: Repository<entityimagesProduc>,
     @InjectRepository(entityimagesDealers)
     private readonly connectImgDeal: Repository<entityimagesDealers>,
+    @InjectRepository(entityimagesMarket)
+    private readonly entityimagesMarket: Repository<entityimagesMarket>,
   ) {}
 
   async infoimg(idimge): Promise<any> {
@@ -189,5 +192,22 @@ export class ImagesService {
     });
 
     return datosbase1;
+  }
+
+  async insertRegMarket(id_user, filename, path, size): Promise<any> {
+    const resultEntities = [];
+    const datosbase2 = this.entityimagesMarket.create({
+      id_imgmarket: id_user,
+      filename: filename,
+      rute: path,
+      size: size,
+      id_user: id_user,
+    });
+    await datosbase2.save();
+    resultEntities.push(datosbase2);
+
+    console.log(datosbase2);
+
+    return datosbase2;
   }
 }

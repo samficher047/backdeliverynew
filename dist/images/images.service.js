@@ -20,12 +20,14 @@ const imgProduc_entity_1 = require("./entities/imgProduc.entity");
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const typeorm_2 = require("@nestjs/typeorm");
+const imagesMarkets_entity_1 = require("./entities/imagesMarkets.entity");
 let ImagesService = class ImagesService {
-    constructor(conectimages1, connectimages2, connectImgProduc, connectImgDeal) {
+    constructor(conectimages1, connectimages2, connectImgProduc, connectImgDeal, entityimagesMarket) {
         this.conectimages1 = conectimages1;
         this.connectimages2 = connectimages2;
         this.connectImgProduc = connectImgProduc;
         this.connectImgDeal = connectImgDeal;
+        this.entityimagesMarket = entityimagesMarket;
     }
     async infoimg(idimge) {
         console.log('entro a servicio de prueba');
@@ -142,6 +144,20 @@ let ImagesService = class ImagesService {
         });
         return datosbase1;
     }
+    async insertRegMarket(id_user, filename, path, size) {
+        const resultEntities = [];
+        const datosbase2 = this.entityimagesMarket.create({
+            id_imgmarket: id_user,
+            filename: filename,
+            rute: path,
+            size: size,
+            id_user: id_user,
+        });
+        await datosbase2.save();
+        resultEntities.push(datosbase2);
+        console.log(datosbase2);
+        return datosbase2;
+    }
 };
 exports.ImagesService = ImagesService;
 exports.ImagesService = ImagesService = __decorate([
@@ -150,7 +166,9 @@ exports.ImagesService = ImagesService = __decorate([
     __param(1, (0, typeorm_2.InjectRepository)(imagesUsers_entity_1.entityimagesUser)),
     __param(2, (0, typeorm_2.InjectRepository)(imgProduc_entity_1.entityimagesProduc)),
     __param(3, (0, typeorm_2.InjectRepository)(dealers_entity_1.entityimagesDealers)),
+    __param(4, (0, typeorm_2.InjectRepository)(imagesMarkets_entity_1.entityimagesMarket)),
     __metadata("design:paramtypes", [typeorm_1.Repository,
+        typeorm_1.Repository,
         typeorm_1.Repository,
         typeorm_1.Repository,
         typeorm_1.Repository])
