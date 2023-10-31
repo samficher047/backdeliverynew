@@ -18,7 +18,7 @@ export class EnrollmentController {
   }
 
   @Get('get-categories')
-  @Auth(TypesRol.client)
+  //@Auth(TypesRol.client)
   getCategories() {
     return this.enrollmentService.getCategories();
   }
