@@ -16,14 +16,12 @@ exports.EnrollmentController = void 0;
 const common_1 = require("@nestjs/common");
 const enrollment_service_1 = require("./enrollment.service");
 const create_enrollment_dto_1 = require("./dto/create-enrollment.dto");
-const user_entity_1 = require("../../auth/entities/user.entity");
-const decorators_1 = require("../../auth/decorators");
 let EnrollmentController = class EnrollmentController {
     constructor(enrollmentService) {
         this.enrollmentService = enrollmentService;
     }
-    create(user, createEnrollmentDto) {
-        return this.enrollmentService.create(user, createEnrollmentDto);
+    create(createEnrollmentDto) {
+        return this.enrollmentService.create(createEnrollmentDto);
     }
     getCategories() {
         return this.enrollmentService.getCategories();
@@ -32,11 +30,9 @@ let EnrollmentController = class EnrollmentController {
 exports.EnrollmentController = EnrollmentController;
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, decorators_1.GetUser)()),
-    __param(1, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User,
-        create_enrollment_dto_1.CreateEnrollmentDto]),
+    __metadata("design:paramtypes", [create_enrollment_dto_1.CreateEnrollmentDto]),
     __metadata("design:returntype", void 0)
 ], EnrollmentController.prototype, "create", null);
 __decorate([

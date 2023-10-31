@@ -35,9 +35,9 @@ export class EnrollmentService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
-
-  async create(user: User, createEnrollmentDto: CreateEnrollmentDto) {
-    const { name } = createEnrollmentDto;
+  //user: User,
+  async create(createEnrollmentDto: CreateEnrollmentDto) {
+    const { name, userId } = createEnrollmentDto;
 
     // if (user.roles.includes(TypesRol.deliveryman)) {
     //   throw new BadRequestException({
@@ -55,11 +55,11 @@ export class EnrollmentService {
     const { categoryId } = createEnrollmentDto;
     try {
       const company = this.companyRepository.create(createEnrollmentDto);
-      company.user = user;
+      //company.user = user;
       await this.companyRepository.save(company);
 
       const store = this.storeRepository.create(createEnrollmentDto);
-      store.user = user;
+      //store.user = user;
       store.company = company;
       await this.storeRepository.save(store);
 
@@ -76,7 +76,6 @@ export class EnrollmentService {
         });
         await this.hoursOperationRepository.save(hoursOperation);
       }
-
       // if (!user.roles.includes(TypesRol.manager)) {
       //   this.userRepository
       //     .createQueryBuilder('uss')
@@ -85,8 +84,16 @@ export class EnrollmentService {
       //     .execute();
       // }
 
+      const datosbase1 = await this.companyRepository.update(
+        { id: company.id },
+        {
+          userId: userId,
+        },
+      );
+
       return { company };
     } catch (error) {
+      console.log('llego aqui' + error);
       handleDbExceptions(error, this.logger);
     }
   }

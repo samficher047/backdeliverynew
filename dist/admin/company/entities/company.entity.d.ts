@@ -14,6 +14,7 @@ export declare class Company {
     location: Location | string;
     createdAt: Date;
     updatedAt: Date;
+    userId: number;
     checkLocation(): void;
     user: User;
     products?: Product[];

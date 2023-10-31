@@ -1,4 +1,4 @@
-import { Company } from "src/admin/company/entities/company.entity";
+import { Company } from 'src/admin/company/entities/company.entity';
 export declare class Product {
     id: number;
     name: string;

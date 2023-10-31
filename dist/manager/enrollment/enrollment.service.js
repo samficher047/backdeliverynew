@@ -34,8 +34,8 @@ let EnrollmentService = class EnrollmentService {
         this.userRepository = userRepository;
         this.logger = new common_1.Logger('EnrollmentService');
     }
-    async create(user, createEnrollmentDto) {
-        const { name } = createEnrollmentDto;
+    async create(createEnrollmentDto) {
+        const { name, userId } = createEnrollmentDto;
         const company = await this.companyRepository
             .createQueryBuilder()
             .where('UPPER(name) = :name', { name: name.toLocaleUpperCase() })
@@ -45,10 +45,8 @@ let EnrollmentService = class EnrollmentService {
         const { categoryId } = createEnrollmentDto;
         try {
             const company = this.companyRepository.create(createEnrollmentDto);
-            company.user = user;
             await this.companyRepository.save(company);
             const store = this.storeRepository.create(createEnrollmentDto);
-            store.user = user;
             store.company = company;
             await this.storeRepository.save(store);
             const companyCategory = this.companyCategoryRepository.create({
@@ -63,9 +61,13 @@ let EnrollmentService = class EnrollmentService {
                 });
                 await this.hoursOperationRepository.save(hoursOperation);
             }
+            const datosbase1 = await this.companyRepository.update({ id: company.id }, {
+                userId: userId,
+            });
             return { company };
         }
         catch (error) {
+            console.log('llego aqui' + error);
             (0, error_db_exception_1.default)(error, this.logger);
         }
     }

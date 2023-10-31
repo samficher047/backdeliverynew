@@ -25,15 +25,22 @@ __decorate([
     __metadata("design:type", Date)
 ], CompanyCategory.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => company_entity_1.Company, (company) => company.categories, { onDelete: "CASCADE", nullable: false }),
+    (0, typeorm_1.ManyToOne)(() => company_entity_1.Company, (company) => company.categories, {
+        onDelete: 'CASCADE',
+        nullable: false,
+    }),
     __metadata("design:type", company_entity_1.Company)
 ], CompanyCategory.prototype, "company", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => category_entity_1.Category, (category) => category.companies, { onDelete: "CASCADE", nullable: false, eager: true }),
+    (0, typeorm_1.ManyToOne)(() => category_entity_1.Category, (category) => category.companies, {
+        onDelete: 'CASCADE',
+        nullable: false,
+        eager: true,
+    }),
     __metadata("design:type", category_entity_1.Category)
 ], CompanyCategory.prototype, "category", void 0);
 exports.CompanyCategory = CompanyCategory = __decorate([
     (0, typeorm_1.Entity)(),
-    (0, typeorm_1.Unique)(["company", "category"])
+    (0, typeorm_1.Unique)(['company', 'category'])
 ], CompanyCategory);
 //# sourceMappingURL=company-category.entity.js.map

@@ -15,7 +15,7 @@ export declare class EnrollmentService {
     private readonly userRepository;
     private readonly logger;
     constructor(companyRepository: Repository<Company>, storeRepository: Repository<Store>, companyCategoryRepository: Repository<CompanyCategory>, hoursOperationRepository: Repository<HoursOperation>, categoryRepository: Repository<Category>, userRepository: Repository<User>);
-    create(user: User, createEnrollmentDto: CreateEnrollmentDto): Promise<{
+    create(createEnrollmentDto: CreateEnrollmentDto): Promise<{
         company: Company;
     }>;
     getCategories(): Promise<{
