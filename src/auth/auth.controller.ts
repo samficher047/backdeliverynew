@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Patch, Param, ParseUUIDPipe, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Patch,
+  Param,
+  ParseUUIDPipe,
+  Delete,
+} from '@nestjs/common';
 
 import { Auth } from './decorators/auth.decorator';
 import { GetUser } from './decorators/get-user.decorator';
@@ -13,7 +21,7 @@ import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) { }
+  constructor(private readonly authService: AuthService) {}
 
   @Post('google')
   google(@Body() googleUserDto: GoogleUserDto) {
@@ -21,27 +29,41 @@ export class AuthController {
   }
 
   @Patch('recover/:email')
-  recoverAccount(
-    @Param('email') email: string,
-  ) {
+  recoverAccount(@Param('email') email: string) {
     return this.authService.recoverAccount(email);
   }
 
   @Post('register')
-  async register(
-    @Body() createUserDto: CreateUserDto, 
-    ) {
-      const result1 = await this.authService.register(createUserDto)
-      const result2 = await this.authService.updateregister(result1.user.id, createUserDto.rol)
-      const result3 = this.authService.inforegister(result1.user.id)
-    return result3;
+  async register(@Body() createUserDto: CreateUserDto) {
+    const result1 = await this.authService.register(createUserDto);
+    const result2 = await this.authService.updateregister(
+      result1.user.id,
+      createUserDto.rol,
+    );
+    const result3 = this.authService.inforegister(result1.user.id);
+    console.log('result3');
+    console.log(result3);
+    return {
+      user: {
+        fullName: result1.user.fullName,
+        email: result1.user.email,
+        phone: result1.user.phone,
+        idGoogle: result1.user.idGoogle,
+        passwordTemporary: result1.user.passwordTemporary,
+        id: result1.user.id,
+        image: result1.user.image,
+        isActive: result1.user.isActive,
+        roles: [createUserDto.rol],
+        createdAt: result1.user.createdAt,
+        updatedAt: result1.user.updatedAt,
+        token: result1.user.token,
+      },
+    };
   }
 
   @Patch('update')
   @Auth()
-  update(
-    @GetUser() user: User,
-    @Body() updateUserDto: UpdateUserDto) {
+  update(@GetUser() user: User, @Body() updateUserDto: UpdateUserDto) {
     return this.authService.update(user, updateUserDto);
   }
 
@@ -49,7 +71,8 @@ export class AuthController {
   @Auth()
   updatePasswor(
     @GetUser() user: User,
-    @Body() passwordUserDto: PasswordUserDto) {
+    @Body() passwordUserDto: PasswordUserDto,
+  ) {
     return this.authService.updatePasswor(user, passwordUserDto);
   }
 

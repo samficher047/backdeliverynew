@@ -7,13 +7,14 @@ import { TypesRol } from 'src/common/glob/types';
 
 @Controller('manager/enrollment')
 export class EnrollmentController {
-  constructor(private readonly enrollmentService: EnrollmentService) { }
+  constructor(private readonly enrollmentService: EnrollmentService) {}
 
   @Post()
   ////@Auth(TypesRol.client)
   create(
     @GetUser() user: User,
-    @Body() createEnrollmentDto: CreateEnrollmentDto) {
+    @Body() createEnrollmentDto: CreateEnrollmentDto,
+  ) {
     return this.enrollmentService.create(user, createEnrollmentDto);
   }
 
@@ -22,5 +23,4 @@ export class EnrollmentController {
   getCategories() {
     return this.enrollmentService.getCategories();
   }
-
 }

@@ -54,4 +54,8 @@ __decorate([
     (0, class_validator_1.IsPositive)(),
     __metadata("design:type", Number)
 ], CreateEnrollmentDto.prototype, "categoryId", void 0);
+__decorate([
+    (0, class_validator_1.IsPositive)(),
+    __metadata("design:type", Number)
+], CreateEnrollmentDto.prototype, "userId", void 0);
 //# sourceMappingURL=create-enrollment.dto.js.map

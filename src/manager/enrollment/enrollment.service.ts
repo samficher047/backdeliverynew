@@ -14,11 +14,9 @@ import { ErrorCode } from 'src/common/glob/error';
 
 @Injectable()
 export class EnrollmentService {
-
   private readonly logger = new Logger('EnrollmentService');
 
   constructor(
-
     @InjectRepository(Company)
     private readonly companyRepository: Repository<Company>,
 
@@ -36,17 +34,21 @@ export class EnrollmentService {
 
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) { }
+  ) {}
 
   async create(user: User, createEnrollmentDto: CreateEnrollmentDto) {
-
     const { name } = createEnrollmentDto;
 
-    if (user.roles.includes(TypesRol.deliveryman)) {
-      throw new BadRequestException({ codeError: ErrorCode.DELIVERYMANCANNOTBEMANAGER });
-    }
+    // if (user.roles.includes(TypesRol.deliveryman)) {
+    //   throw new BadRequestException({
+    //     codeError: ErrorCode.DELIVERYMANCANNOTBEMANAGER,
+    //   });
+    // }
 
-    const company = await this.companyRepository.createQueryBuilder().where('UPPER(name) = :name', { name: name.toLocaleUpperCase() }).getOne();
+    const company = await this.companyRepository
+      .createQueryBuilder()
+      .where('UPPER(name) = :name', { name: name.toLocaleUpperCase() })
+      .getOne();
     if (company)
       throw new BadRequestException({ codeError: ErrorCode.NAMEUNIQUE });
 
@@ -61,23 +63,29 @@ export class EnrollmentService {
       store.company = company;
       await this.storeRepository.save(store);
 
-      const companyCategory = this.companyCategoryRepository
-        .create({ company, category: { id: categoryId } });
+      const companyCategory = this.companyCategoryRepository.create({
+        company,
+        category: { id: categoryId },
+      });
       await this.companyCategoryRepository.save(companyCategory);
 
       for (let day = 0; day < 7; day++) {
-        const hoursOperation = this.hoursOperationRepository.create({ store, day });
+        const hoursOperation = this.hoursOperationRepository.create({
+          store,
+          day,
+        });
         await this.hoursOperationRepository.save(hoursOperation);
       }
 
-      if (!user.roles.includes(TypesRol.manager)) {
-        this.userRepository.createQueryBuilder('uss')
-          .update({ roles: [...user.roles, TypesRol.manager] })
-          .where({ id: user.id }).execute();
-      }
+      // if (!user.roles.includes(TypesRol.manager)) {
+      //   this.userRepository
+      //     .createQueryBuilder('uss')
+      //     .update({ roles: [...user.roles, TypesRol.manager] })
+      //     .where({ id: user.id })
+      //     .execute();
+      // }
 
-      return { company }
-
+      return { company };
     } catch (error) {
       handleDbExceptions(error, this.logger);
     }
@@ -88,5 +96,4 @@ export class EnrollmentService {
     const categories = await this.categoryRepository.find();
     return { categories };
   }
-
 }
