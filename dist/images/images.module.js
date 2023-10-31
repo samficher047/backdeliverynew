@@ -17,6 +17,7 @@ const imagesUsers_entity_1 = require("./entities/imagesUsers.entity");
 const imgProduc_entity_1 = require("./entities/imgProduc.entity");
 const images_controller_1 = require("./images.controller");
 const images_service_1 = require("./images.service");
+const imagesMarkets_entity_1 = require("./entities/imagesMarkets.entity");
 let Images1Module = class Images1Module {
 };
 exports.Images1Module = Images1Module;
@@ -31,6 +32,7 @@ exports.Images1Module = Images1Module = __decorate([
                 imagesUsers_entity_1.entityimagesUser,
                 imgProduc_entity_1.entityimagesProduc,
                 dealers_entity_1.entityimagesDealers,
+                imagesMarkets_entity_1.entityimagesMarket,
             ]),
             auth_module_1.AuthModule,
         ],

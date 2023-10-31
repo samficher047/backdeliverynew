@@ -135,6 +135,21 @@ let GaleryController = class GaleryController {
         info.push(item);
         return item;
     }
+    async insertphotoMarket(id_user, image) {
+        if (!image) {
+            return 'Faltan datos requeridos.';
+        }
+        const rute = '/images/markets/' + image.filename;
+        const info = [];
+        const resultInsert = await this.imagesServ.insertRegMarket(id_user, image.filename, rute, image.size);
+        console.log(image.filename);
+        const item = {
+            id_regis: resultInsert.id_imgDealers,
+            rute: rute,
+        };
+        info.push(item);
+        return item;
+    }
 };
 exports.GaleryController = GaleryController;
 __decorate([
@@ -273,6 +288,26 @@ __decorate([
     __metadata("design:paramtypes", [Number, Number, Object]),
     __metadata("design:returntype", Promise)
 ], GaleryController.prototype, "insertphotoUserfixedup", null);
+__decorate([
+    (0, common_1.Post)('/insertphotomarket'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image', {
+        storage: (0, multer_1.diskStorage)({
+            destination: 'files/markets',
+            filename: (req, file, cb) => {
+                const randomName = Array(32)
+                    .fill(null)
+                    .map(() => Math.round(Math.random() * 16).toString(16))
+                    .join('');
+                cb(null, `${randomName}${(0, path_1.extname)(file.originalname)}`);
+            },
+        }),
+    })),
+    __param(0, (0, common_1.Body)('iduser')),
+    __param(1, (0, common_1.UploadedFile)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", Promise)
+], GaleryController.prototype, "insertphotoMarket", null);
 exports.GaleryController = GaleryController = __decorate([
     (0, common_1.Controller)('chImages'),
     __metadata("design:paramtypes", [images_service_1.ImagesService])

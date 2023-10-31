@@ -12,4 +12,5 @@ export declare class GaleryController {
     insertphotoDriver(id_deliv: number, code_deliv: number, name_deliv: string, type_com: number, id_company: string, image: Express.Multer.File): Promise<any>;
     imgdriver(idimge: any): Promise<any[]>;
     insertphotoUserfixedup(id_user: number, type: number, image: Express.Multer.File): Promise<any>;
+    insertphotoMarket(id_user: number, image: Express.Multer.File): Promise<any>;
 }
