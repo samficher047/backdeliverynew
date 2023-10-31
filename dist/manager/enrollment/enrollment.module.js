@@ -24,7 +24,16 @@ exports.EnrollmentModule = EnrollmentModule = __decorate([
     (0, common_1.Module)({
         controllers: [enrollment_controller_1.EnrollmentController],
         providers: [enrollment_service_1.EnrollmentService],
-        imports: [typeorm_1.TypeOrmModule.forFeature([store_entity_1.Store, company_entity_1.Company, company_category_entity_1.CompanyCategory, hours_peration_entity_1.HoursOperation, category_entity_1.Category]), auth_module_1.AuthModule]
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([
+                store_entity_1.Store,
+                company_entity_1.Company,
+                company_category_entity_1.CompanyCategory,
+                hours_peration_entity_1.HoursOperation,
+                category_entity_1.Category,
+            ]),
+            auth_module_1.AuthModule,
+        ],
     })
 ], EnrollmentModule);
 //# sourceMappingURL=enrollment.module.js.map

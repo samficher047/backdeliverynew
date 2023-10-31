@@ -12,10 +12,11 @@ export class EnrollmentController {
   @Post()
   ////@Auth(TypesRol.client)
   create(
-    @GetUser() user: User,
+    //@GetUser() user: User,
     @Body() createEnrollmentDto: CreateEnrollmentDto,
   ) {
-    return this.enrollmentService.create(user, createEnrollmentDto);
+    //user,
+    return this.enrollmentService.create(createEnrollmentDto);
   }
 
   @Get('get-categories')

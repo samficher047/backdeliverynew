@@ -37,7 +37,7 @@ import { NotificationModule } from './notification/notification.module';
       database: process.env.DB_NAME,
       entities: [],
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     }),
     CompanyModule,
     CommonModule,

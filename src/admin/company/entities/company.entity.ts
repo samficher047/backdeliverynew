@@ -52,6 +52,9 @@ export class Company {
   @UpdateDateColumn({ type: 'timestamptz', onUpdate: 'CURRENT_TIMESTAMP' })
   updatedAt: Date;
 
+  @Column('int')
+  userId: number;
+
   @BeforeInsert()
   @BeforeUpdate()
   checkLocation() {

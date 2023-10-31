@@ -65,6 +65,10 @@ __decorate([
     __metadata("design:type", Date)
 ], Company.prototype, "updatedAt", void 0);
 __decorate([
+    (0, typeorm_1.Column)('int'),
+    __metadata("design:type", Number)
+], Company.prototype, "userId", void 0);
+__decorate([
     (0, typeorm_1.BeforeInsert)(),
     (0, typeorm_1.BeforeUpdate)(),
     __metadata("design:type", Function),

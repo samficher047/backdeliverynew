@@ -54,13 +54,13 @@ __decorate([
 ], Product.prototype, "number", void 0);
 __decorate([
     (0, typeorm_1.Column)('int', {
-        default: 1
+        default: 1,
     }),
     __metadata("design:type", Number)
 ], Product.prototype, "type", void 0);
 __decorate([
     (0, typeorm_1.Column)('float', {
-        default: 0
+        default: 0,
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -78,7 +78,9 @@ __decorate([
     __metadata("design:type", Date)
 ], Product.prototype, "deletedAt", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => company_entity_1.Company, (company) => company.products, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.ManyToOne)(() => company_entity_1.Company, (company) => company.products, {
+        onDelete: 'CASCADE',
+    }),
     __metadata("design:type", company_entity_1.Company)
 ], Product.prototype, "company", void 0);
 exports.Product = Product = __decorate([

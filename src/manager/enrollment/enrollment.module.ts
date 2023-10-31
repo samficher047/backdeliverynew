@@ -12,6 +12,15 @@ import { Category } from 'src/admin/category/entities/category.entity';
 @Module({
   controllers: [EnrollmentController],
   providers: [EnrollmentService],
-  imports: [TypeOrmModule.forFeature([Store, Company, CompanyCategory, HoursOperation, Category]), AuthModule]
+  imports: [
+    TypeOrmModule.forFeature([
+      Store,
+      Company,
+      CompanyCategory,
+      HoursOperation,
+      Category,
+    ]),
+    AuthModule,
+  ],
 })
-export class EnrollmentModule { }
+export class EnrollmentModule {}
