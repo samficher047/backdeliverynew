@@ -16,7 +16,6 @@ exports.PaymentsController = void 0;
 const common_1 = require("@nestjs/common");
 const payments_service_1 = require("./payments.service");
 const create_payment_dto_1 = require("./dto/create-payment.dto");
-const types_1 = require("../../common/glob/types");
 const decorators_1 = require("../../auth/decorators");
 const user_entity_1 = require("../../auth/entities/user.entity");
 let PaymentsController = class PaymentsController {
@@ -36,7 +35,6 @@ let PaymentsController = class PaymentsController {
 exports.PaymentsController = PaymentsController;
 __decorate([
     (0, common_1.Post)('payment'),
-    (0, decorators_1.Auth)(types_1.TypesRol.client),
     __param(0, (0, decorators_1.GetUser)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -46,7 +44,6 @@ __decorate([
 ], PaymentsController.prototype, "create", null);
 __decorate([
     (0, common_1.Patch)('confirm/:paymentId'),
-    (0, decorators_1.Auth)(types_1.TypesRol.client),
     __param(0, (0, common_1.Param)('paymentId', common_1.ParseIntPipe)),
     __param(1, (0, decorators_1.GetUser)()),
     __metadata("design:type", Function),
@@ -55,7 +52,6 @@ __decorate([
 ], PaymentsController.prototype, "confirm", null);
 __decorate([
     (0, common_1.Patch)('cancel/:paymentId'),
-    (0, decorators_1.Auth)(types_1.TypesRol.client),
     __param(0, (0, common_1.Param)('paymentId', common_1.ParseIntPipe)),
     __param(1, (0, decorators_1.GetUser)()),
     __metadata("design:type", Function),

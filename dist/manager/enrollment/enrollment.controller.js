@@ -18,7 +18,6 @@ const enrollment_service_1 = require("./enrollment.service");
 const create_enrollment_dto_1 = require("./dto/create-enrollment.dto");
 const user_entity_1 = require("../../auth/entities/user.entity");
 const decorators_1 = require("../../auth/decorators");
-const types_1 = require("../../common/glob/types");
 let EnrollmentController = class EnrollmentController {
     constructor(enrollmentService) {
         this.enrollmentService = enrollmentService;
@@ -33,7 +32,6 @@ let EnrollmentController = class EnrollmentController {
 exports.EnrollmentController = EnrollmentController;
 __decorate([
     (0, common_1.Post)(),
-    (0, decorators_1.Auth)(types_1.TypesRol.client),
     __param(0, (0, decorators_1.GetUser)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),

@@ -17,7 +17,6 @@ const common_1 = require("@nestjs/common");
 const product_market_dto_1 = require("./dto/product-market.dto");
 const company_market_dto_1 = require("./dto/company-market.dto");
 const market_service_1 = require("./market.service");
-const types_1 = require("../../common/glob/types");
 const decorators_1 = require("../../auth/decorators");
 const user_entity_1 = require("../../auth/entities/user.entity");
 const order_market_dto_1 = require("./dto/order-market.dto");
@@ -88,7 +87,6 @@ __decorate([
 ], MarketController.prototype, "deliveryCost", null);
 __decorate([
     (0, common_1.Get)('orders'),
-    (0, decorators_1.Auth)(types_1.TypesRol.client),
     __param(0, (0, decorators_1.GetUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_entity_1.User]),
@@ -96,7 +94,6 @@ __decorate([
 ], MarketController.prototype, "findOrders", null);
 __decorate([
     (0, common_1.Get)('order/:orderId'),
-    (0, decorators_1.Auth)(types_1.TypesRol.client),
     __param(0, (0, decorators_1.GetUser)()),
     __param(1, (0, common_1.Param)('orderId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
@@ -105,7 +102,6 @@ __decorate([
 ], MarketController.prototype, "findOrder", null);
 __decorate([
     (0, common_1.Post)('buy'),
-    (0, decorators_1.Auth)(types_1.TypesRol.client),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, decorators_1.GetUser)()),
     __metadata("design:type", Function),
@@ -115,7 +111,6 @@ __decorate([
 ], MarketController.prototype, "buy", null);
 __decorate([
     (0, common_1.Patch)('qualify/:orderId'),
-    (0, decorators_1.Auth)(types_1.TypesRol.client),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, decorators_1.GetUser)()),
     __param(2, (0, common_1.Param)('orderId', common_1.ParseIntPipe)),

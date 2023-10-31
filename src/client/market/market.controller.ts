@@ -14,19 +14,19 @@ export class MarketController {
   constructor(private readonly marketService: MarketService) { }
 
   @Get('companies')
-  // @Auth(TypesRol.client)
+  // //@Auth(TypesRol.client)
   findCompanies(@Query() storeMarketDto: StoreMarketDto) {
     return this.marketService.findCompanies(storeMarketDto);
   }
 
   @Get('categories')
-  // @Auth(TypesRol.client)
+  // //@Auth(TypesRol.client)
   findCategories(@Query() storeMarketDto: StoreMarketDto) {
     return this.marketService.findCategories(storeMarketDto);
   }
 
   @Get('products/company/:companyId')
-  // @Auth(TypesRol.client)
+  // //@Auth(TypesRol.client)
   findProductsByCompany(
     @Param('companyId', ParseIntPipe) companyId: number,
     @Query() productMarketDto: ProductMarketDto
@@ -45,7 +45,7 @@ export class MarketController {
   }
 
   @Get('orders')
-  @Auth(TypesRol.client)
+  //@Auth(TypesRol.client)
   findOrders(
     @GetUser() user: User,
   ) {
@@ -53,7 +53,7 @@ export class MarketController {
   }
 
   @Get('order/:orderId')
-  @Auth(TypesRol.client)
+  //@Auth(TypesRol.client)
   findOrder(
     @GetUser() user: User,
     @Param('orderId', ParseIntPipe) orderId: number,
@@ -62,7 +62,7 @@ export class MarketController {
   }
 
   @Post('buy')
-  @Auth(TypesRol.client)
+  //@Auth(TypesRol.client)
   buy(
     @Body() orderMarketDto: OrderMarketDto,
     @GetUser() user: User,
@@ -71,7 +71,7 @@ export class MarketController {
   }
 
   @Patch('qualify/:orderId')
-  @Auth(TypesRol.client)
+  //@Auth(TypesRol.client)
   qualify(
     @Body() qualifyMarketDto: QualifyMarketDto,
     @GetUser() user: User,
