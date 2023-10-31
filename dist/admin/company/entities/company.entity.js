@@ -52,7 +52,7 @@ __decorate([
     __metadata("design:type", String)
 ], Company.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)("point"),
+    (0, typeorm_1.Column)('point'),
     (0, typeorm_1.Index)({ spatial: true }),
     __metadata("design:type", Object)
 ], Company.prototype, "location", void 0);
@@ -72,15 +72,21 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], Company.prototype, "checkLocation", null);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.companies, { onDelete: "SET NULL" }),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.companies, { onDelete: 'SET NULL' }),
     __metadata("design:type", user_entity_1.User)
 ], Company.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => product_entity_1.Product, (products) => products.company, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => product_entity_1.Product, (products) => products.company, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], Company.prototype, "products", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => store_entity_1.Store, (stores) => stores.company, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => store_entity_1.Store, (stores) => stores.company, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], Company.prototype, "stores", void 0);
 __decorate([

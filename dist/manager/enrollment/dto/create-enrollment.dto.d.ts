@@ -1,4 +1,4 @@
-import { Location } from "src/common/interfaces/location.interface";
+import { Location } from 'src/common/interfaces/location.interface';
 export declare class CreateEnrollmentDto {
     name: string;
     address: string;
@@ -8,4 +8,5 @@ export declare class CreateEnrollmentDto {
     email: string;
     location: Location;
     categoryId: number;
+    userId: number;
 }

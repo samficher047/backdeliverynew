@@ -38,7 +38,24 @@ let AuthController = class AuthController {
         const result1 = await this.authService.register(createUserDto);
         const result2 = await this.authService.updateregister(result1.user.id, createUserDto.rol);
         const result3 = this.authService.inforegister(result1.user.id);
-        return result3;
+        console.log('result3');
+        console.log(result3);
+        return {
+            user: {
+                fullName: result1.user.fullName,
+                email: result1.user.email,
+                phone: result1.user.phone,
+                idGoogle: result1.user.idGoogle,
+                passwordTemporary: result1.user.passwordTemporary,
+                id: result1.user.id,
+                image: result1.user.image,
+                isActive: result1.user.isActive,
+                roles: [createUserDto.rol],
+                createdAt: result1.user.createdAt,
+                updatedAt: result1.user.updatedAt,
+                token: result1.user.token,
+            },
+        };
     }
     update(user, updateUserDto) {
         return this.authService.update(user, updateUserDto);
@@ -87,8 +104,7 @@ __decorate([
     __param(0, (0, get_user_decorator_1.GetUser)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [user_entity_1.User,
-        update_user_dto_1.UpdateUserDto]),
+    __metadata("design:paramtypes", [user_entity_1.User, update_user_dto_1.UpdateUserDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "update", null);
 __decorate([

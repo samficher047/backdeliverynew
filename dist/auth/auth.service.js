@@ -34,54 +34,102 @@ let AuthService = class AuthService {
     async google(googleUserDto) {
         const { email, idGoogle, tokenPush, idDevice } = googleUserDto;
         try {
-            const response = await this.userRepository.createQueryBuilder('uss')
+            const response = await this.userRepository
+                .createQueryBuilder('uss')
                 .update({ idGoogle })
-                .where({ email }).execute();
+                .where({ email })
+                .execute();
             let user;
             if (response.affected > 0) {
                 user = await this.userRepository.findOne({
                     where: { email },
-                    select: { image: true, email: true, password: true, id: true, roles: true, fullName: true, phone: true }
+                    select: {
+                        image: true,
+                        email: true,
+                        password: true,
+                        id: true,
+                        roles: true,
+                        fullName: true,
+                        phone: true,
+                    },
                 });
             }
             else {
-                user = this.userRepository.create({ ...googleUserDto, password: bcrypt.hashSync(Date().toString(), 1) });
+                user = this.userRepository.create({
+                    ...googleUserDto,
+                    password: bcrypt.hashSync(Date().toString(), 1),
+                });
                 await this.userRepository.save(user);
             }
             await this._saveSession(user, idDevice, tokenPush);
-            return { user: { ...user, token: this._getJwtToken({ id: user.id, email: user.email, idDevice }) } };
+            return {
+                user: {
+                    ...user,
+                    token: this._getJwtToken({
+                        id: user.id,
+                        email: user.email,
+                        idDevice,
+                    }),
+                },
+            };
         }
         catch (error) {
             (0, error_db_exception_1.default)(error, this.logger);
         }
     }
     async register(createUserDto) {
-        const { password, tokenPush, ...userData } = createUserDto;
-        console.log("userData=>");
+        const { password, rol, tokenPush, ...userData } = createUserDto;
+        console.log('userData=>');
         console.log(userData);
-        const verification = await this.userRepository.createQueryBuilder("us")
-            .andWhere("(us.email = :emal OR us.phone = :phone)")
-            .setParameters({ emal: userData.email, phone: userData.phone }).getOne();
+        const verification = await this.userRepository
+            .createQueryBuilder('us')
+            .andWhere('(us.email = :emal OR us.phone = :phone)')
+            .setParameters({ emal: userData.email, phone: userData.phone })
+            .getOne();
         if (verification) {
             if (verification['email'] === userData.email) {
+                console.log('EMAILUNIQUE');
                 throw new common_1.BadRequestException({ codeError: error_1.ErrorCode.EMAILUNIQUE });
             }
             else if (verification['phone'] === userData.phone) {
+                console.log('PHONEUNIQUE');
                 throw new common_1.BadRequestException({ codeError: error_1.ErrorCode.PHONEUNIQUE });
             }
             else {
+                console.log('UNKNOWN');
                 throw new common_1.BadRequestException({ codeError: error_1.ErrorCode.UNKNOWN });
             }
         }
         try {
-            const user = this.userRepository.create({ ...userData, password: bcrypt.hashSync(password, 3) });
-            console.log("user=>");
+            const user = this.userRepository.create({
+                ...userData,
+                password: bcrypt.hashSync(password, 3),
+            });
+            console.log('user=>');
             console.log(user);
             await this.userRepository.save(user);
             await this._saveSession(user, userData.idDevice, tokenPush);
             delete user.password;
-            const result1 = { user: { ...user, token: this._getJwtToken({ id: user.id, email: user.email, idDevice: userData.idDevice }) } };
-            return { user: { ...user, token: this._getJwtToken({ id: user.id, email: user.email, idDevice: userData.idDevice }) } };
+            const result1 = {
+                user: {
+                    ...user,
+                    token: this._getJwtToken({
+                        id: user.id,
+                        email: user.email,
+                        idDevice: userData.idDevice,
+                    }),
+                },
+            };
+            return {
+                user: {
+                    ...user,
+                    token: this._getJwtToken({
+                        id: user.id,
+                        email: user.email,
+                        idDevice: userData.idDevice,
+                    }),
+                },
+            };
         }
         catch (error) {
             (0, error_db_exception_1.default)(error, this.logger);
@@ -106,25 +154,39 @@ let AuthService = class AuthService {
     }
     async login(loginUserDto) {
         const { password, email, idDevice, tokenPush } = loginUserDto;
-        const user = await this.userRepository
-            .findOne({
+        const user = await this.userRepository.findOne({
             where: { email },
-            select: { image: true, email: true, password: true, passwordTemporary: true, id: true, roles: true, fullName: true, phone: true }
+            select: {
+                image: true,
+                email: true,
+                password: true,
+                passwordTemporary: true,
+                id: true,
+                roles: true,
+                fullName: true,
+                phone: true,
+            },
         });
         if (!user) {
             throw new common_1.UnauthorizedException('UnauthorizedException');
         }
-        if (!bcrypt.compareSync(password, user.password) && !bcrypt.compareSync(password, user.passwordTemporary)) {
+        if (!bcrypt.compareSync(password, user.password) &&
+            !bcrypt.compareSync(password, user.passwordTemporary)) {
             throw new common_1.UnauthorizedException('UnauthorizedException');
         }
         await this._saveSession(user, idDevice, tokenPush);
         delete user.password;
         delete user.passwordTemporary;
-        return { ...user, token: this._getJwtToken({ id: user.id, email: user.email, idDevice }) };
+        return {
+            ...user,
+            token: this._getJwtToken({ id: user.id, email: user.email, idDevice }),
+        };
     }
     async checkStatus(user, idDevice) {
-        const session = await this.sessionRepository
-            .findOne({ where: { user: { id: user.id }, idDevice }, select: { id: true } });
+        const session = await this.sessionRepository.findOne({
+            where: { user: { id: user.id }, idDevice },
+            select: { id: true },
+        });
         if (session)
             return { user };
         else
@@ -133,11 +195,12 @@ let AuthService = class AuthService {
     async updateTokenPush(user, updateTokenPushDto) {
         const { idDevice, tokenPush } = updateTokenPushDto;
         try {
-            await this.sessionRepository.createQueryBuilder()
+            await this.sessionRepository
+                .createQueryBuilder()
                 .update({ tokenPush })
-                .where({ user, idDevice }).execute();
+                .where({ user, idDevice })
+                .execute();
             return { updateTokenPush: true };
-            ;
         }
         catch (error) {
             (0, error_db_exception_1.default)(error, this.logger);
@@ -148,9 +211,15 @@ let AuthService = class AuthService {
         return { logOut: true };
     }
     async update(user, updateUserDto) {
-        const verification = await this.userRepository.createQueryBuilder("us")
-            .andWhere("(us.email = :emal OR us.phone = :phone) AND us.id != :userId")
-            .setParameters({ emal: updateUserDto.email, phone: updateUserDto.phone, userId: user.id }).getOne();
+        const verification = await this.userRepository
+            .createQueryBuilder('us')
+            .andWhere('(us.email = :emal OR us.phone = :phone) AND us.id != :userId')
+            .setParameters({
+            emal: updateUserDto.email,
+            phone: updateUserDto.phone,
+            userId: user.id,
+        })
+            .getOne();
         if (verification) {
             if (verification['email'] === updateUserDto.email) {
                 throw new common_1.BadRequestException({ codeError: error_1.ErrorCode.EMAILUNIQUE });
@@ -163,7 +232,10 @@ let AuthService = class AuthService {
             }
         }
         try {
-            const userUpdate = await this.userRepository.preload({ id: user.id, ...updateUserDto });
+            const userUpdate = await this.userRepository.preload({
+                id: user.id,
+                ...updateUserDto,
+            });
             if (userUpdate) {
                 await this.userRepository.save(userUpdate);
                 delete userUpdate.password;
@@ -178,7 +250,10 @@ let AuthService = class AuthService {
     async updatePasswor(user, passwordUserDto) {
         const { password } = passwordUserDto;
         try {
-            const userUpdate = await this.userRepository.preload({ id: user.id, password: bcrypt.hashSync(password, 3) });
+            const userUpdate = await this.userRepository.preload({
+                id: user.id,
+                password: bcrypt.hashSync(password, 3),
+            });
             if (userUpdate) {
                 await this.userRepository.save(userUpdate);
                 delete userUpdate.password;
@@ -193,11 +268,16 @@ let AuthService = class AuthService {
     async recoverAccount(email) {
         const passwordTemporary = this._generatePassword();
         try {
-            const response = await this.userRepository.createQueryBuilder('uss')
+            const response = await this.userRepository
+                .createQueryBuilder('uss')
                 .update({ passwordTemporary: bcrypt.hashSync(passwordTemporary, 3) })
-                .where({ email }).execute();
+                .where({ email })
+                .execute();
             if (response.affected > 0) {
-                const user = await this.userRepository.findOne({ where: { email }, select: { id: true, fullName: true } });
+                const user = await this.userRepository.findOne({
+                    where: { email },
+                    select: { id: true, fullName: true },
+                });
                 this.emailServiceService.sendPassword(user.fullName, email, passwordTemporary);
                 return { recover: true };
             }
@@ -213,8 +293,15 @@ let AuthService = class AuthService {
     async _saveSession(user, idDevice, tokenPush) {
         if (tokenPush)
             await this.sessionRepository.delete({ tokenPush });
-        await this.sessionRepository.delete({ user: { id: user.id }, idDevice: idDevice });
-        const session = this.sessionRepository.create({ user, idDevice, tokenPush });
+        await this.sessionRepository.delete({
+            user: { id: user.id },
+            idDevice: idDevice,
+        });
+        const session = this.sessionRepository.create({
+            user,
+            idDevice,
+            tokenPush,
+        });
         await this.sessionRepository.save(session);
     }
     _generatePassword() {
@@ -222,7 +309,7 @@ let AuthService = class AuthService {
         let clave = '';
         for (let i = 0; i < 6; i++)
             clave += numbers1[Math.floor(Math.random() * numbers1.length)];
-        return (clave);
+        return clave;
     }
 };
 exports.AuthService = AuthService;

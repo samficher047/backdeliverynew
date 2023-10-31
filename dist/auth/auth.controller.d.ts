@@ -40,7 +40,22 @@ export declare class AuthController {
     recoverAccount(email: string): Promise<{
         recover: boolean;
     }>;
-    register(createUserDto: CreateUserDto): Promise<any>;
+    register(createUserDto: CreateUserDto): Promise<{
+        user: {
+            fullName: string;
+            email: string;
+            phone: string;
+            idGoogle: string;
+            passwordTemporary: string;
+            id: number;
+            image: string;
+            isActive: boolean;
+            roles: string[];
+            createdAt: Date;
+            updatedAt: Date;
+            token: string;
+        };
+    }>;
     update(user: User, updateUserDto: UpdateUserDto): Promise<{
         user: {
             id: number;

@@ -1,8 +1,8 @@
-import { Product } from "src/admin/product/entities/product.entity";
-import { Store } from "src/admin/store/entities/store.entity";
-import { CompanyCategory } from "src/admin/company-category/entities/company-category.entity";
-import { Location } from "src/common/interfaces/location.interface";
-import { User } from "src/auth/entities/user.entity";
+import { Product } from 'src/admin/product/entities/product.entity';
+import { Store } from 'src/admin/store/entities/store.entity';
+import { CompanyCategory } from 'src/admin/company-category/entities/company-category.entity';
+import { Location } from 'src/common/interfaces/location.interface';
+import { User } from 'src/auth/entities/user.entity';
 export declare class Company {
     id: number;
     name: string;

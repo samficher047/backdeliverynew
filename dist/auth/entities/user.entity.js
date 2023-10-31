@@ -75,35 +75,59 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => product_entity_1.Product, (products) => products.company, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => product_entity_1.Product, (products) => products.company, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "products", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => company_entity_1.Company, (company) => company.user, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => company_entity_1.Company, (company) => company.user, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "companies", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => store_entity_1.Store, (store) => store.user, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => store_entity_1.Store, (store) => store.user, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "stores", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => balance_entity_1.Balance, (balance) => balance.user, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => balance_entity_1.Balance, (balance) => balance.user, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "balances", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => credit_entity_1.Credit, (credit) => credit.deliveryman, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => credit_entity_1.Credit, (credit) => credit.deliveryman, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "credits", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => address_entity_1.Address, (address) => address.user, { cascade: true, eager: true }),
+    (0, typeorm_1.OneToMany)(() => address_entity_1.Address, (address) => address.user, {
+        cascade: true,
+        eager: true,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "addresses", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => payment_entity_1.Payment, (payment) => payment.user, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => payment_entity_1.Payment, (payment) => payment.user, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "payments", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => order_entity_1.Order, (order) => order.user, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => order_entity_1.Order, (order) => order.user, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "orders", void 0);
 __decorate([
@@ -115,7 +139,10 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "chatsTo", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => session_entity_1.Session, (session) => session.user, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => session_entity_1.Session, (session) => session.user, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], User.prototype, "sessions", void 0);
 exports.User = User = __decorate([
