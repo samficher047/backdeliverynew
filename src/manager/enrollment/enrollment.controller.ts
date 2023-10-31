@@ -10,7 +10,7 @@ export class EnrollmentController {
   constructor(private readonly enrollmentService: EnrollmentService) { }
 
   @Post()
-  @Auth(TypesRol.client)
+  ////@Auth(TypesRol.client)
   create(
     @GetUser() user: User,
     @Body() createEnrollmentDto: CreateEnrollmentDto) {
@@ -18,7 +18,7 @@ export class EnrollmentController {
   }
 
   @Get('get-categories')
-  //@Auth(TypesRol.client)
+  ////@Auth(TypesRol.client)
   getCategories() {
     return this.enrollmentService.getCategories();
   }

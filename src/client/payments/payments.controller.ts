@@ -10,7 +10,7 @@ export class PaymentsController {
   constructor(private readonly paymentsService: PaymentsService) { }
 
   @Post('payment')
-  @Auth(TypesRol.client)
+  //@Auth(TypesRol.client)
   create(
     @GetUser() user: User,
     @Body() createPaymentDto: CreatePaymentDto) {
@@ -18,7 +18,7 @@ export class PaymentsController {
   }
 
   @Patch('confirm/:paymentId')
-  @Auth(TypesRol.client)
+  //@Auth(TypesRol.client)
   confirm(
     @Param('paymentId', ParseIntPipe) paymentId: number,
     @GetUser() user: User,
@@ -27,7 +27,7 @@ export class PaymentsController {
   }
 
   @Patch('cancel/:paymentId')
-  @Auth(TypesRol.client)
+  //@Auth(TypesRol.client)
   cancel(
     @Param('paymentId', ParseIntPipe) paymentId: number,
     @GetUser() user: User,
