@@ -210,4 +210,20 @@ export class ImagesService {
 
     return datosbase2;
   }
+
+  async insertRegProduct(id_user, filename, path, size): Promise<any> {
+    const resultEntities = [];
+    const datosbase2 = this.connectImgProduc.create({
+      filename: filename,
+      rute: path,
+      size: size,
+      id_user: id_user,
+    });
+    await datosbase2.save();
+    resultEntities.push(datosbase2);
+
+    console.log(datosbase2);
+
+    return datosbase2;
+  }
 }

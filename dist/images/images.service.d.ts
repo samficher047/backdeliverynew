@@ -21,4 +21,5 @@ export declare class ImagesService {
     insertRegDeal(id_deliv: any, code_deliv: any, name_deliv: any, namefile: any, name_original: any, rute: any, size: any, id_company: any, type_com: any): Promise<any>;
     infoimgDeal(idimge: any): Promise<any>;
     insertRegMarket(id_user: any, filename: any, path: any, size: any): Promise<any>;
+    insertRegProduct(id_user: any, filename: any, path: any, size: any): Promise<any>;
 }
