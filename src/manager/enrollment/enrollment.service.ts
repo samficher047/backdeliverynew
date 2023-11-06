@@ -91,6 +91,13 @@ export class EnrollmentService {
         },
       );
 
+      const datosbase2 = await this.storeRepository.update(
+        { id: company.id },
+        {
+          userId: userId,
+        },
+      );
+
       return { company };
     } catch (error) {
       console.log('llego aqui' + error);
