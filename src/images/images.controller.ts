@@ -366,4 +366,46 @@ export class GaleryController {
 
     return item;
   }
+
+  @Post('/uploadigproduct')
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: 'files/produc',
+        filename: (req, file, cb) => {
+          const randomName = Array(32)
+            .fill(null)
+            .map(() => Math.round(Math.random() * 16).toString(16))
+            .join('');
+          cb(null, `${randomName}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
+  public async insertphotoProduct(
+    @Body('iduser') id_user: number,
+    @UploadedFile() image: Express.Multer.File,
+  ): Promise<any> {
+    if (!image) {
+      return 'Faltan datos requeridos.';
+    }
+    const rute = '/images/produc/' + image.filename;
+    const info = [];
+
+    const resultInsert = await this.imagesServ.insertRegProduct(
+      id_user,
+      image.filename,
+      rute,
+      image.size,
+    );
+
+    console.log(image.filename);
+    const item = {
+      id_regis: resultInsert.id_imgDealers,
+      rute: rute,
+    };
+    info.push(item);
+
+    return item;
+  }
 }
