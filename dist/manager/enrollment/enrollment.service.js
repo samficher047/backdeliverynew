@@ -61,7 +61,10 @@ let EnrollmentService = class EnrollmentService {
                 });
                 await this.hoursOperationRepository.save(hoursOperation);
             }
-            const datosbase1 = await this.companyRepository.update({ id: company.id }, {
+            const update_company = await this.companyRepository.update({ id: company.id }, {
+                userId: userId,
+            });
+            const update_store = await this.storeRepository.update({ id: company.id }, {
                 userId: userId,
             });
             return { company };
