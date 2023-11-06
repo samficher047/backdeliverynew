@@ -1,8 +1,8 @@
-import { Company } from "src/admin/company/entities/company.entity";
-import { Location } from "src/common/interfaces/location.interface";
-import { User } from "src/auth/entities/user.entity";
-import { Order } from "src/client/market/entities/order.entity";
-import { HoursOperation } from "src/admin/hours-peration/entities/hours-peration.entity";
+import { Company } from 'src/admin/company/entities/company.entity';
+import { Location } from 'src/common/interfaces/location.interface';
+import { User } from 'src/auth/entities/user.entity';
+import { Order } from 'src/client/market/entities/order.entity';
+import { HoursOperation } from 'src/admin/hours-peration/entities/hours-peration.entity';
 export declare class Store {
     id: number;
     name: string;
@@ -16,6 +16,7 @@ export declare class Store {
     createdAt: Date;
     updatedAt: Date;
     deletedAt?: Date;
+    userId: number;
     orders?: Order[];
     company: Company;
     user: User;

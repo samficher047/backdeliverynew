@@ -52,12 +52,12 @@ __decorate([
     __metadata("design:type", Number)
 ], Store.prototype, "costKm", void 0);
 __decorate([
-    (0, typeorm_1.Column)("point"),
+    (0, typeorm_1.Column)('point'),
     (0, typeorm_1.Index)({ spatial: true }),
     __metadata("design:type", Object)
 ], Store.prototype, "location", void 0);
 __decorate([
-    (0, typeorm_1.Column)("int", { default: 0 }),
+    (0, typeorm_1.Column)('int', { default: 0 }),
     __metadata("design:type", Number)
 ], Store.prototype, "sales", void 0);
 __decorate([
@@ -73,19 +73,31 @@ __decorate([
     __metadata("design:type", Date)
 ], Store.prototype, "deletedAt", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => order_entity_1.Order, (order) => order.store, { cascade: true, eager: false }),
+    (0, typeorm_1.Column)('int'),
+    __metadata("design:type", Number)
+], Store.prototype, "userId", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => order_entity_1.Order, (order) => order.store, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], Store.prototype, "orders", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => company_entity_1.Company, (company) => company.stores, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.ManyToOne)(() => company_entity_1.Company, (company) => company.stores, {
+        onDelete: 'CASCADE',
+    }),
     __metadata("design:type", company_entity_1.Company)
 ], Store.prototype, "company", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.stores, { onDelete: "SET NULL" }),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.stores, { onDelete: 'SET NULL' }),
     __metadata("design:type", user_entity_1.User)
 ], Store.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => hours_peration_entity_1.HoursOperation, (hoursOperation) => hoursOperation.store, { cascade: true, eager: false }),
+    (0, typeorm_1.OneToMany)(() => hours_peration_entity_1.HoursOperation, (hoursOperation) => hoursOperation.store, {
+        cascade: true,
+        eager: false,
+    }),
     __metadata("design:type", Array)
 ], Store.prototype, "hoursOperations", void 0);
 __decorate([

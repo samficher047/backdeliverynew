@@ -84,14 +84,14 @@ export class EnrollmentService {
       //     .execute();
       // }
 
-      const datosbase1 = await this.companyRepository.update(
+      const update_company = await this.companyRepository.update(
         { id: company.id },
         {
           userId: userId,
         },
       );
 
-      const datosbase2 = await this.storeRepository.update(
+      const update_store = await this.storeRepository.update(
         { id: company.id },
         {
           userId: userId,
