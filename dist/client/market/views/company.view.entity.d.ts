@@ -1,4 +1,4 @@
-import { Location } from "src/common/interfaces/location.interface";
+import { Location } from 'src/common/interfaces/location.interface';
 export declare class ViewCompany {
     id: number;
     storeId: number;

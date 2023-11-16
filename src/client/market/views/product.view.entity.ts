@@ -1,41 +1,38 @@
-import { ViewColumn, ViewEntity } from "typeorm";
+import { ViewColumn, ViewEntity } from 'typeorm';
 
-const query =
-    `
+const query = `
     SELECT p.id, p."companyId", cc.name AS "companyName", p.name, p.image, p.description, p.type, p.price
 	FROM public.product AS p
     INNER JOIN public.company AS cc ON cc.id = p."companyId"
-    `
+    `;
 
 @ViewEntity({
-    schema: 'public',
-    name: 'vw_product',
-    expression: query
+  schema: 'public',
+  name: 'vw_product',
+  expression: query,
 })
 export class ViewProduct {
+  @ViewColumn()
+  id: number;
 
-    @ViewColumn()
-    id: number;
+  @ViewColumn({ name: 'companyId' })
+  companyId: number;
 
-    @ViewColumn({ name: 'companyId' })
-    companyId: number;
+  @ViewColumn({ name: 'companyName' })
+  companyName: string;
 
-    @ViewColumn({ name: 'companyName' })
-    companyName: string;
+  @ViewColumn()
+  name: string;
 
-    @ViewColumn()
-    name: string;
+  @ViewColumn()
+  description: string;
 
-    @ViewColumn()
-    description: string;
+  @ViewColumn()
+  type: number;
 
-    @ViewColumn()
-    type: number;
+  @ViewColumn()
+  price: number;
 
-    @ViewColumn()
-    price: number;
-
-    @ViewColumn()
-    image: string;
-
+  @ViewColumn()
+  image: string;
 }
