@@ -8,7 +8,12 @@ import { OrderMarketDto } from './dto/order-market.dto';
 import { Order } from './entities/order.entity';
 import { ProductMarketDto } from './dto/product-market.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Inject, Injectable, Logger, BadRequestException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  BadRequestException,
+} from '@nestjs/common';
 import { ViewCategory } from './views/category.view.entity';
 import { StatusOrder } from 'src/common/glob/status';
 import { Store } from '../../admin/store/entities/store.entity';
@@ -21,7 +26,6 @@ import { TypesPayment } from '../../common/glob/types';
 import { Balance } from '../balance/entities/balance.entity';
 @Injectable()
 export class MarketService {
-
   private readonly logger = new Logger('MarketService');
 
   constructor(
@@ -44,39 +48,50 @@ export class MarketService {
     private readonly balanceRepository: Repository<Balance>,
 
     @Inject(NotificationService)
-    private readonly notificationService: NotificationService
-  ) { }
+    private readonly notificationService: NotificationService,
+  ) {}
 
-  private sqlFilterStore = (latitude: number, longitude: number):
-    string =>
+  private sqlFilterStore = (latitude: number, longitude: number): string =>
     `ST_DistanceSphere( 
       ST_GeomFromText('POINT(${latitude} ${longitude})'), 
         st.location::geometry) 
       <= :km`;
 
   async findCompanies(storeMarketDto: StoreMarketDto) {
-    const { limit = 100, offset = 0, latitude, longitude, categoryId } = storeMarketDto;
+    const {
+      limit = 1000,
+      offset = 0,
+      latitude,
+      longitude,
+      categoryId,
+    } = storeMarketDto;
     try {
       const query = this.companyViewRepository.createQueryBuilder('st');
       let companies = [];
       if (categoryId > 0) {
         companies = await query
-          .where(this.sqlFilterStore(latitude, longitude), { km: FilterKM.STORES_NEARBY })
-          .andWhere("st.categoryId = :categoryId", { categoryId })
+          .where(this.sqlFilterStore(latitude, longitude), {
+            km: FilterKM.STORES_NEARBY,
+          })
+          .andWhere('st.categoryId = :categoryId', { categoryId })
           .distinctOn(['id'])
           .take(limit)
           .skip(offset)
           .getMany();
       } else {
         companies = await query
-          .where(this.sqlFilterStore(latitude, longitude), { km: FilterKM.STORES_NEARBY })
+          .where(this.sqlFilterStore(latitude, longitude), {
+            km: FilterKM.STORES_NEARBY,
+          })
           .distinctOn(['id'])
           .take(limit)
           .skip(offset)
           .getMany();
       }
 
-      companies.sort(function (a, b) { return b.isOpen - a.isOpen; });
+      companies.sort(function (a, b) {
+        return b.isOpen - a.isOpen;
+      });
 
       // Example of companies [c1, c2, c3, c4, c5, c6, c7] jump 3
       // companiesId = [3, 6]
@@ -84,25 +99,26 @@ export class MarketService {
       let companiesId: [] = [];
       if (companies.length >= jump * 3) {
         companiesId = companies.reduce((ids, element, index) => {
-          if (element.isOpen && (index + 1) % jump == 0) ids.push(element.id)
+          if (element.isOpen && (index + 1) % jump == 0) ids.push(element.id);
           return ids;
         }, []);
       }
       if (companiesId.length <= 0) {
         companiesId = companies.reduce((ids, element) => {
-          if (element.isOpen)
-            ids.push(element.id)
+          if (element.isOpen) ids.push(element.id);
           return ids;
         }, []);
       }
 
-      // We return the products sorted in ascending order if the jump is pair 
+      // We return the products sorted in ascending order if the jump is pair
       // otherwise we sort in descending order.
       let products = [];
-      if (companiesId.length > 0) products = await this.productViewRepository.createQueryBuilder('p')
-        .where(`p.companyId IN (:...companiesId)`, { companiesId })
-        .orderBy({ 'p.companyId': jump % 2 == 0 ? 'ASC' : 'DESC' })
-        .getMany();
+      if (companiesId.length > 0)
+        products = await this.productViewRepository
+          .createQueryBuilder('p')
+          .where(`p.companyId IN (:...companiesId)`, { companiesId })
+          .orderBy({ 'p.companyId': jump % 2 == 0 ? 'ASC' : 'DESC' })
+          .getMany();
 
       // We return only one product by company
       let companyId = 0;
@@ -113,7 +129,6 @@ export class MarketService {
         }
         return products;
       }, []);
-
 
       return { companies, products };
     } catch (error) {
@@ -126,7 +141,9 @@ export class MarketService {
     try {
       const query = this.categoryViewRepository.createQueryBuilder('st');
       const categories = await query
-        .where(this.sqlFilterStore(latitude, longitude), { km: FilterKM.STORES_NEARBY })
+        .where(this.sqlFilterStore(latitude, longitude), {
+          km: FilterKM.STORES_NEARBY,
+        })
         .take(limit)
         .skip(offset)
         .getMany();
@@ -138,14 +155,33 @@ export class MarketService {
 
   async findOrders(user: User) {
     try {
-      const orders = await this.orderRepository.createQueryBuilder('p')
-        .select(['p', 'user.id', 'user.fullName', 'user.image', 'company.image', 'company.marker', 'store.id', 'store.name', 'store.address', 'store.location'])
-        .innerJoin("p.store", "store")
-        .innerJoin("store.company", "company")
-        .leftJoin("p.deliveryman", "user")
-        .where('p.userId = :userId AND (p.status <= :statusDelivered OR p.status = :statusCancelled)',
-          { userId: user.id, statusDelivered: StatusOrder.DELIVERED, statusCancelled: StatusOrder.CANCELLED })
-        .orderBy({ 'p.id': 'DESC' }).getMany()
+      const orders = await this.orderRepository
+        .createQueryBuilder('p')
+        .select([
+          'p',
+          'user.id',
+          'user.fullName',
+          'user.image',
+          'company.image',
+          'company.marker',
+          'store.id',
+          'store.name',
+          'store.address',
+          'store.location',
+        ])
+        .innerJoin('p.store', 'store')
+        .innerJoin('store.company', 'company')
+        .leftJoin('p.deliveryman', 'user')
+        .where(
+          'p.userId = :userId AND (p.status <= :statusDelivered OR p.status = :statusCancelled)',
+          {
+            userId: user.id,
+            statusDelivered: StatusOrder.DELIVERED,
+            statusCancelled: StatusOrder.CANCELLED,
+          },
+        )
+        .orderBy({ 'p.id': 'DESC' })
+        .getMany();
       return { orders };
     } catch (error) {
       handleDbExceptions(error, this.logger);
@@ -154,23 +190,42 @@ export class MarketService {
 
   async findOrder(orderId: number, user: User) {
     try {
-      const order = await this.orderRepository.createQueryBuilder('p')
-        .select(['p', 'user.id', 'user.fullName', 'user.image', 'company.image', 'company.marker', 'store.id', 'store.name', 'store.address', 'store.location'])
-        .innerJoin("p.store", "store")
-        .innerJoin("store.company", "company")
-        .leftJoin("p.deliveryman", "user")
-        .where('p.id = :orderId AND p.userId = :userId', { orderId, userId: user.id })
-        .getOne()
+      const order = await this.orderRepository
+        .createQueryBuilder('p')
+        .select([
+          'p',
+          'user.id',
+          'user.fullName',
+          'user.image',
+          'company.image',
+          'company.marker',
+          'store.id',
+          'store.name',
+          'store.address',
+          'store.location',
+        ])
+        .innerJoin('p.store', 'store')
+        .innerJoin('store.company', 'company')
+        .leftJoin('p.deliveryman', 'user')
+        .where('p.id = :orderId AND p.userId = :userId', {
+          orderId,
+          userId: user.id,
+        })
+        .getOne();
       return { order };
     } catch (error) {
       handleDbExceptions(error, this.logger);
     }
   }
 
-  async findProductsByCompany(companyId: number, productMarketDto: ProductMarketDto) {
+  async findProductsByCompany(
+    companyId: number,
+    productMarketDto: ProductMarketDto,
+  ) {
     const { limit = 100, offset = 0 } = productMarketDto;
     try {
-      const products = await this.productViewRepository.createQueryBuilder('p')
+      const products = await this.productViewRepository
+        .createQueryBuilder('p')
         .where(`p.companyId = :companyId`, { companyId })
         .take(limit)
         .skip(offset)
@@ -181,7 +236,11 @@ export class MarketService {
     }
   }
 
-  async deliveryCost(user: User, companyIds: number[], costDeliveryMarketDto: CostDeliveryMarketDto) {
+  async deliveryCost(
+    user: User,
+    companyIds: number[],
+    costDeliveryMarketDto: CostDeliveryMarketDto,
+  ) {
     // await new Promise(resolve => setTimeout(resolve, 3000));
     const { latitude, longitude } = costDeliveryMarketDto;
     try {
@@ -189,22 +248,26 @@ export class MarketService {
       //Obtenemos las tiendas (stores), que esten abiertos y el mas cercano para obtener el precio de este al momento de comrpa.
       const companies = await query
         .select(['st.storeId'])
-        .where(this.sqlFilterStore(latitude, longitude), { km: FilterKM.STORES_NEARBY })
-        .andWhere("st.id IN (:...companyIds) AND st.isOpen = true", { companyIds })
+        .where(this.sqlFilterStore(latitude, longitude), {
+          km: FilterKM.STORES_NEARBY,
+        })
+        .andWhere('st.id IN (:...companyIds) AND st.isOpen = true', {
+          companyIds,
+        })
         .getMany();
-      const storeIds = companies.map((element) => (element['storeId']));
+      const storeIds = companies.map((element) => element['storeId']);
 
       if (storeIds.length > 0) {
         //Cuando tenemos las tiendas (stores) mas cercanos le consultamos el costo de envio esto en el carrito de compras.
         const sqlCost = `s.name, s.companyId, c.image, c.marker, s.id AS store_id, s.startupCost + ((ST_DistanceSphere(ST_GeomFromText('POINT(${latitude} ${longitude})'), s.location::geometry) / 1000) * s.costKm) AS deliveryFee`;
-        let fees = await this.storeRepository.createQueryBuilder('s')
+        const fees = await this.storeRepository
+          .createQueryBuilder('s')
           .select(sqlCost)
-          .innerJoin("s.company", "c")
-          .where("s.id IN (:...storeIds)", { storeIds })
-          .getRawMany()
+          .innerJoin('s.company', 'c')
+          .where('s.id IN (:...storeIds)', { storeIds })
+          .getRawMany();
         return { fees };
       }
-
     } catch (error) {
       handleDbExceptions(error, this.logger);
     }
@@ -215,13 +278,19 @@ export class MarketService {
     const { payment, total } = orderMarketDto;
 
     if (payment == TypesPayment.money) {
-      const balance = await this.balanceRepository.findOneBy({ userId: user.id });
+      const balance = await this.balanceRepository.findOneBy({
+        userId: user.id,
+      });
 
       if (!balance)
-        throw new BadRequestException(`The client does not have a balance sheet record`);
+        throw new BadRequestException(
+          `The client does not have a balance sheet record`,
+        );
 
       if (total > balance.money)
-        throw new BadRequestException(`The client has no balance to take the order`);
+        throw new BadRequestException(
+          `The client has no balance to take the order`,
+        );
 
       //We subtract the total value of the order from the client's money
       balance.money = balance.money - total;
@@ -234,13 +303,18 @@ export class MarketService {
       await this.orderRepository.save(order);
 
       const data = {
-        "type": TypesNotification.NEW_ORDER,
-        "title": 'New order',
-        "body": user.fullName,
-        "orderId": `${order.id}`
+        type: TypesNotification.NEW_ORDER,
+        title: 'New order',
+        body: user.fullName,
+        orderId: `${order.id}`,
       };
 
-      this.notificationService.notifyOrder(order.id, orderMarketDto.location.x, orderMarketDto.location.y, data);
+      this.notificationService.notifyOrder(
+        order.id,
+        orderMarketDto.location.x,
+        orderMarketDto.location.y,
+        data,
+      );
 
       delete order.user;
       delete order.location;
@@ -251,11 +325,17 @@ export class MarketService {
     }
   }
 
-  async qualify(orderId: number, user: User, qualifyMarketDto: QualifyMarketDto) {
+  async qualify(
+    orderId: number,
+    user: User,
+    qualifyMarketDto: QualifyMarketDto,
+  ) {
     const { scoreClient } = qualifyMarketDto;
-    await this.orderRepository.createQueryBuilder()
+    await this.orderRepository
+      .createQueryBuilder()
       .update({ status: StatusOrder.QUALIFIED, scoreClient })
-      .where({ id: orderId, user }).execute();
+      .where({ id: orderId, user })
+      .execute();
     return true;
   }
 }

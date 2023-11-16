@@ -55,7 +55,7 @@ exports.ViewProduct = ViewProduct = __decorate([
     (0, typeorm_1.ViewEntity)({
         schema: 'public',
         name: 'vw_product',
-        expression: query
+        expression: query,
     })
 ], ViewProduct);
 //# sourceMappingURL=product.view.entity.js.map

@@ -21,9 +21,10 @@ import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { CommonModule } from './common/common.module';
 import { EmailModule } from './email/email.module';
-import { Images1Module } from './images/images.module'
+import { Images1Module } from './images/images.module';
 import { LocationWsModule } from './location-ws/location-ws.module';
 import { NotificationModule } from './notification/notification.module';
+import { ShippingPackagesModule } from './shippingpackages/shippingpackages.module';
 
 @Module({
   imports: [
@@ -61,8 +62,9 @@ import { NotificationModule } from './notification/notification.module';
     CreditModule,
     RequestModule,
     Images1Module,
+    ShippingPackagesModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

@@ -37,7 +37,7 @@ exports.ViewCategory = ViewCategory = __decorate([
     (0, typeorm_1.ViewEntity)({
         schema: 'public',
         name: 'vw_category',
-        expression: query
+        expression: query,
     })
 ], ViewCategory);
 //# sourceMappingURL=category.view.entity.js.map

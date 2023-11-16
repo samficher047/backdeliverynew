@@ -72,7 +72,7 @@ exports.ViewCompany = ViewCompany = __decorate([
     (0, typeorm_1.ViewEntity)({
         schema: 'public',
         name: 'vw_company',
-        expression: query
+        expression: query,
     })
 ], ViewCompany);
 //# sourceMappingURL=company.view.entity.js.map

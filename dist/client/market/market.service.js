@@ -44,14 +44,16 @@ let MarketService = class MarketService {
       <= :km`;
     }
     async findCompanies(storeMarketDto) {
-        const { limit = 100, offset = 0, latitude, longitude, categoryId } = storeMarketDto;
+        const { limit = 1000, offset = 0, latitude, longitude, categoryId, } = storeMarketDto;
         try {
             const query = this.companyViewRepository.createQueryBuilder('st');
             let companies = [];
             if (categoryId > 0) {
                 companies = await query
-                    .where(this.sqlFilterStore(latitude, longitude), { km: filter_1.FilterKM.STORES_NEARBY })
-                    .andWhere("st.categoryId = :categoryId", { categoryId })
+                    .where(this.sqlFilterStore(latitude, longitude), {
+                    km: filter_1.FilterKM.STORES_NEARBY,
+                })
+                    .andWhere('st.categoryId = :categoryId', { categoryId })
                     .distinctOn(['id'])
                     .take(limit)
                     .skip(offset)
@@ -59,13 +61,17 @@ let MarketService = class MarketService {
             }
             else {
                 companies = await query
-                    .where(this.sqlFilterStore(latitude, longitude), { km: filter_1.FilterKM.STORES_NEARBY })
+                    .where(this.sqlFilterStore(latitude, longitude), {
+                    km: filter_1.FilterKM.STORES_NEARBY,
+                })
                     .distinctOn(['id'])
                     .take(limit)
                     .skip(offset)
                     .getMany();
             }
-            companies.sort(function (a, b) { return b.isOpen - a.isOpen; });
+            companies.sort(function (a, b) {
+                return b.isOpen - a.isOpen;
+            });
             const jump = Math.round(new Date().getHours() / 4);
             let companiesId = [];
             if (companies.length >= jump * 3) {
@@ -84,7 +90,8 @@ let MarketService = class MarketService {
             }
             let products = [];
             if (companiesId.length > 0)
-                products = await this.productViewRepository.createQueryBuilder('p')
+                products = await this.productViewRepository
+                    .createQueryBuilder('p')
                     .where(`p.companyId IN (:...companiesId)`, { companiesId })
                     .orderBy({ 'p.companyId': jump % 2 == 0 ? 'ASC' : 'DESC' })
                     .getMany();
@@ -107,7 +114,9 @@ let MarketService = class MarketService {
         try {
             const query = this.categoryViewRepository.createQueryBuilder('st');
             const categories = await query
-                .where(this.sqlFilterStore(latitude, longitude), { km: filter_1.FilterKM.STORES_NEARBY })
+                .where(this.sqlFilterStore(latitude, longitude), {
+                km: filter_1.FilterKM.STORES_NEARBY,
+            })
                 .take(limit)
                 .skip(offset)
                 .getMany();
@@ -119,13 +128,30 @@ let MarketService = class MarketService {
     }
     async findOrders(user) {
         try {
-            const orders = await this.orderRepository.createQueryBuilder('p')
-                .select(['p', 'user.id', 'user.fullName', 'user.image', 'company.image', 'company.marker', 'store.id', 'store.name', 'store.address', 'store.location'])
-                .innerJoin("p.store", "store")
-                .innerJoin("store.company", "company")
-                .leftJoin("p.deliveryman", "user")
-                .where('p.userId = :userId AND (p.status <= :statusDelivered OR p.status = :statusCancelled)', { userId: user.id, statusDelivered: status_1.StatusOrder.DELIVERED, statusCancelled: status_1.StatusOrder.CANCELLED })
-                .orderBy({ 'p.id': 'DESC' }).getMany();
+            const orders = await this.orderRepository
+                .createQueryBuilder('p')
+                .select([
+                'p',
+                'user.id',
+                'user.fullName',
+                'user.image',
+                'company.image',
+                'company.marker',
+                'store.id',
+                'store.name',
+                'store.address',
+                'store.location',
+            ])
+                .innerJoin('p.store', 'store')
+                .innerJoin('store.company', 'company')
+                .leftJoin('p.deliveryman', 'user')
+                .where('p.userId = :userId AND (p.status <= :statusDelivered OR p.status = :statusCancelled)', {
+                userId: user.id,
+                statusDelivered: status_1.StatusOrder.DELIVERED,
+                statusCancelled: status_1.StatusOrder.CANCELLED,
+            })
+                .orderBy({ 'p.id': 'DESC' })
+                .getMany();
             return { orders };
         }
         catch (error) {
@@ -134,12 +160,27 @@ let MarketService = class MarketService {
     }
     async findOrder(orderId, user) {
         try {
-            const order = await this.orderRepository.createQueryBuilder('p')
-                .select(['p', 'user.id', 'user.fullName', 'user.image', 'company.image', 'company.marker', 'store.id', 'store.name', 'store.address', 'store.location'])
-                .innerJoin("p.store", "store")
-                .innerJoin("store.company", "company")
-                .leftJoin("p.deliveryman", "user")
-                .where('p.id = :orderId AND p.userId = :userId', { orderId, userId: user.id })
+            const order = await this.orderRepository
+                .createQueryBuilder('p')
+                .select([
+                'p',
+                'user.id',
+                'user.fullName',
+                'user.image',
+                'company.image',
+                'company.marker',
+                'store.id',
+                'store.name',
+                'store.address',
+                'store.location',
+            ])
+                .innerJoin('p.store', 'store')
+                .innerJoin('store.company', 'company')
+                .leftJoin('p.deliveryman', 'user')
+                .where('p.id = :orderId AND p.userId = :userId', {
+                orderId,
+                userId: user.id,
+            })
                 .getOne();
             return { order };
         }
@@ -150,7 +191,8 @@ let MarketService = class MarketService {
     async findProductsByCompany(companyId, productMarketDto) {
         const { limit = 100, offset = 0 } = productMarketDto;
         try {
-            const products = await this.productViewRepository.createQueryBuilder('p')
+            const products = await this.productViewRepository
+                .createQueryBuilder('p')
                 .where(`p.companyId = :companyId`, { companyId })
                 .take(limit)
                 .skip(offset)
@@ -167,16 +209,21 @@ let MarketService = class MarketService {
             const query = this.companyViewRepository.createQueryBuilder('st');
             const companies = await query
                 .select(['st.storeId'])
-                .where(this.sqlFilterStore(latitude, longitude), { km: filter_1.FilterKM.STORES_NEARBY })
-                .andWhere("st.id IN (:...companyIds) AND st.isOpen = true", { companyIds })
+                .where(this.sqlFilterStore(latitude, longitude), {
+                km: filter_1.FilterKM.STORES_NEARBY,
+            })
+                .andWhere('st.id IN (:...companyIds) AND st.isOpen = true', {
+                companyIds,
+            })
                 .getMany();
-            const storeIds = companies.map((element) => (element['storeId']));
+            const storeIds = companies.map((element) => element['storeId']);
             if (storeIds.length > 0) {
                 const sqlCost = `s.name, s.companyId, c.image, c.marker, s.id AS store_id, s.startupCost + ((ST_DistanceSphere(ST_GeomFromText('POINT(${latitude} ${longitude})'), s.location::geometry) / 1000) * s.costKm) AS deliveryFee`;
-                let fees = await this.storeRepository.createQueryBuilder('s')
+                const fees = await this.storeRepository
+                    .createQueryBuilder('s')
                     .select(sqlCost)
-                    .innerJoin("s.company", "c")
-                    .where("s.id IN (:...storeIds)", { storeIds })
+                    .innerJoin('s.company', 'c')
+                    .where('s.id IN (:...storeIds)', { storeIds })
                     .getRawMany();
                 return { fees };
             }
@@ -189,7 +236,9 @@ let MarketService = class MarketService {
     async buy(user, orderMarketDto) {
         const { payment, total } = orderMarketDto;
         if (payment == types_2.TypesPayment.money) {
-            const balance = await this.balanceRepository.findOneBy({ userId: user.id });
+            const balance = await this.balanceRepository.findOneBy({
+                userId: user.id,
+            });
             if (!balance)
                 throw new common_1.BadRequestException(`The client does not have a balance sheet record`);
             if (total > balance.money)
@@ -202,10 +251,10 @@ let MarketService = class MarketService {
             order.user = user;
             await this.orderRepository.save(order);
             const data = {
-                "type": types_1.TypesNotification.NEW_ORDER,
-                "title": 'New order',
-                "body": user.fullName,
-                "orderId": `${order.id}`
+                type: types_1.TypesNotification.NEW_ORDER,
+                title: 'New order',
+                body: user.fullName,
+                orderId: `${order.id}`,
             };
             this.notificationService.notifyOrder(order.id, orderMarketDto.location.x, orderMarketDto.location.y, data);
             delete order.user;
@@ -218,9 +267,11 @@ let MarketService = class MarketService {
     }
     async qualify(orderId, user, qualifyMarketDto) {
         const { scoreClient } = qualifyMarketDto;
-        await this.orderRepository.createQueryBuilder()
+        await this.orderRepository
+            .createQueryBuilder()
             .update({ status: status_1.StatusOrder.QUALIFIED, scoreClient })
-            .where({ id: orderId, user }).execute();
+            .where({ id: orderId, user })
+            .execute();
         return true;
     }
 };

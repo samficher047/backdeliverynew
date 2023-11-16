@@ -32,6 +32,7 @@ const email_module_1 = require("./email/email.module");
 const images_module_1 = require("./images/images.module");
 const location_ws_module_1 = require("./location-ws/location-ws.module");
 const notification_module_1 = require("./notification/notification.module");
+const shippingpackages_module_1 = require("./shippingpackages/shippingpackages.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -72,6 +73,7 @@ exports.AppModule = AppModule = __decorate([
             credit_module_1.CreditModule,
             request_module_1.RequestModule,
             images_module_1.Images1Module,
+            shippingpackages_module_1.ShippingPackagesModule,
         ],
         controllers: [],
         providers: [],

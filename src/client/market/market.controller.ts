@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, Query, ParseArrayPipe, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  ParseIntPipe,
+  Query,
+  ParseArrayPipe,
+  Patch,
+} from '@nestjs/common';
 import { ProductMarketDto } from './dto/product-market.dto';
 import { StoreMarketDto } from './dto/company-market.dto';
 import { MarketService } from './market.service';
@@ -11,7 +21,7 @@ import { QualifyMarketDto } from './dto/qualify-market.dto';
 
 @Controller('client/market')
 export class MarketController {
-  constructor(private readonly marketService: MarketService) { }
+  constructor(private readonly marketService: MarketService) {}
 
   @Get('companies')
   // //@Auth(TypesRol.client)
@@ -29,9 +39,12 @@ export class MarketController {
   // //@Auth(TypesRol.client)
   findProductsByCompany(
     @Param('companyId', ParseIntPipe) companyId: number,
-    @Query() productMarketDto: ProductMarketDto
+    @Query() productMarketDto: ProductMarketDto,
   ) {
-    return this.marketService.findProductsByCompany(companyId, productMarketDto);
+    return this.marketService.findProductsByCompany(
+      companyId,
+      productMarketDto,
+    );
   }
 
   @Get('delivery-cost/companies/:companyIds')
@@ -41,14 +54,16 @@ export class MarketController {
     @Query() costDeliveryMarketDto: CostDeliveryMarketDto,
     @GetUser() user: User,
   ) {
-    return this.marketService.deliveryCost(user, companyIds, costDeliveryMarketDto);
+    return this.marketService.deliveryCost(
+      user,
+      companyIds,
+      costDeliveryMarketDto,
+    );
   }
 
   @Get('orders')
   //@Auth(TypesRol.client)
-  findOrders(
-    @GetUser() user: User,
-  ) {
+  findOrders(@GetUser() user: User) {
     return this.marketService.findOrders(user);
   }
 
@@ -63,10 +78,7 @@ export class MarketController {
 
   @Post('buy')
   //@Auth(TypesRol.client)
-  buy(
-    @Body() orderMarketDto: OrderMarketDto,
-    @GetUser() user: User,
-  ) {
+  buy(@Body() orderMarketDto: OrderMarketDto, @GetUser() user: User) {
     return this.marketService.buy(user, orderMarketDto);
   }
 

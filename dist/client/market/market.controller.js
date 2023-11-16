@@ -105,8 +105,7 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, decorators_1.GetUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [order_market_dto_1.OrderMarketDto,
-        user_entity_1.User]),
+    __metadata("design:paramtypes", [order_market_dto_1.OrderMarketDto, user_entity_1.User]),
     __metadata("design:returntype", void 0)
 ], MarketController.prototype, "buy", null);
 __decorate([
