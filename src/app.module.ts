@@ -24,6 +24,7 @@ import { EmailModule } from './email/email.module';
 import { Images1Module } from './images/images.module';
 import { LocationWsModule } from './location-ws/location-ws.module';
 import { NotificationModule } from './notification/notification.module';
+import { ShippingDHLModule } from './shipmentsdhl/shipmentsdhl.module';
 import { ShippingPackagesModule } from './shippingpackages/shippingpackages.module';
 
 @Module({
@@ -63,6 +64,7 @@ import { ShippingPackagesModule } from './shippingpackages/shippingpackages.modu
     RequestModule,
     Images1Module,
     ShippingPackagesModule,
+    ShippingDHLModule,
   ],
   controllers: [],
   providers: [],
