@@ -256,3 +256,24 @@ export interface Datalabel {
 //   service_id: 'jtexpress_mx_D-C01_ground',
 //   carriers: ['jtexpress'],
 // };
+
+export interface ShippingInfo {
+  provehdor: string;
+  provehdorid: number;
+  ObjectId: string;
+  ShippingId: string;
+  service_id: string;
+  carrier: string;
+  currency: string;
+  days: string;
+  price: number;
+  insurance: number;
+  service: string;
+  metadata: {
+    extended_area: {
+      extended_area: boolean;
+      origin: boolean;
+      destination: boolean;
+    };
+  };
+}

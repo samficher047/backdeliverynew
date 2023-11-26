@@ -39,6 +39,11 @@ let ShippingPackagesController = class ShippingPackagesController {
         const result = await this.shippingpackages.newlabel(datalabel);
         return result;
     }
+    async allshipmentsrate(SendRequest) {
+        console.log('entro');
+        const result = await this.shippingpackages.allrates(SendRequest);
+        return result;
+    }
 };
 exports.ShippingPackagesController = ShippingPackagesController;
 __decorate([
@@ -68,6 +73,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ShippingPackagesController.prototype, "generatelabel", null);
+__decorate([
+    (0, common_1.Post)('/allshipmentsrate'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ShippingPackagesController.prototype, "allshipmentsrate", null);
 exports.ShippingPackagesController = ShippingPackagesController = __decorate([
     (0, common_1.Controller)('shippingpackages'),
     __metadata("design:paramtypes", [shippingpackages_service_1.ShippingPackagesService])
