@@ -129,15 +129,8 @@ export interface ShippingInfo {
     carrier: string;
     currency: string;
     days: string;
-    price: number;
-    insurance: number;
+    price: string;
+    insurance: string;
     service: string;
-    metadata: {
-        extended_area: {
-            extended_area: boolean;
-            origin: boolean;
-            destination: boolean;
-        };
-    };
 }
 export {};

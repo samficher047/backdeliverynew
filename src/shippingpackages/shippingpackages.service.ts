@@ -339,13 +339,6 @@ export class ShippingPackagesService {
           price: response1.data[i]['price'],
           insurance: response1.data[i]['insurance'],
           service: response1.data[i]['service'],
-          metadata: {
-            extended_area: {
-              extended_area: false,
-              origin: false,
-              destination: false,
-            },
-          },
         };
 
         shippingArray.push(shippingInfo);
@@ -363,15 +356,8 @@ export class ShippingPackagesService {
           'totalTransitDays'
         ],
         price: response2.data['products'][0]['totalPrice'][0]['price'],
-        insurance: 0,
+        insurance: '0',
         service: response2.data['products'][0]['productName'],
-        metadata: {
-          extended_area: {
-            extended_area: false,
-            origin: false,
-            destination: false,
-          },
-        },
       };
 
       shippingArray.push(shippingInfo2);
@@ -397,16 +383,9 @@ export class ShippingPackagesService {
             response3.data['output']['rateReplyDetails'][i][
               'ratedShipmentDetails'
             ][0]['totalNetFedExCharge'],
-          insurance: 0,
+          insurance: '0',
           service:
             response3.data['output']['rateReplyDetails'][i]['serviceName'],
-          metadata: {
-            extended_area: {
-              extended_area: false,
-              origin: false,
-              destination: false,
-            },
-          },
         };
 
         shippingArray.push(shippingInfo);
