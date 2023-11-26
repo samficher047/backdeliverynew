@@ -37,7 +37,7 @@ let ShippingPackagesController = class ShippingPackagesController {
     async generatelabel(datalabel) {
         console.log('entro');
         const result = await this.shippingpackages.newlabel(datalabel);
-        return result;
+        return [result];
     }
     async allshipmentsrate(SendRequest) {
         console.log('entro');

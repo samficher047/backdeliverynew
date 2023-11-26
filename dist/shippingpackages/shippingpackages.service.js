@@ -84,8 +84,12 @@ let ShippingPackagesService = class ShippingPackagesService {
                     'Content-Type': 'application/json',
                 },
             });
-            console.log(response.data);
-            const result = response.data;
+            console.log(response.data['label']);
+            console.log(response.data['tracking']);
+            const result = {
+                tracking: response.data['tracking'],
+                label: response.data['label'],
+            };
             return result;
         }
         catch (error) { }

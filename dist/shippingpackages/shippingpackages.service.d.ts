@@ -4,6 +4,9 @@ export declare class ShippingPackagesService {
     getquotes(): Promise<any>;
     newrate(SendRequest: Datasend): Promise<any>;
     newratefedex(FedExRequest: FedExRequest): Promise<any[]>;
-    newlabel(Datalabel: Datalabel): Promise<any>;
+    newlabel(Datalabel: Datalabel): Promise<{
+        tracking: any;
+        label: any;
+    }>;
     allrates(SendRequest: Datasend): Promise<ShippingInfo[]>;
 }
