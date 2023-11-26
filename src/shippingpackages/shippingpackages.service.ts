@@ -329,7 +329,7 @@ export class ShippingPackagesService {
         // // n es el número de veces que quieres repetir el proceso
         const shippingInfo: ShippingInfo = {
           provehdor: 'DRenvio',
-          provehdorid: 1,
+          provehdorid: '1',
           ObjectId: response1.data[i]['ObjectId'],
           ShippingId: response1.data[i]['ShippingId'],
           service_id: response1.data[i]['service_id'],
@@ -353,7 +353,7 @@ export class ShippingPackagesService {
 
       const shippingInfo2: ShippingInfo = {
         provehdor: 'DHL',
-        provehdorid: 2,
+        provehdorid: '2',
         ObjectId: 'DHL',
         ShippingId: 'DHL',
         service_id: 'DHL',
@@ -383,7 +383,7 @@ export class ShippingPackagesService {
       ) {
         const shippingInfo: ShippingInfo = {
           provehdor: 'FEDEX',
-          provehdorid: 3,
+          provehdorid: '3',
           ObjectId: 'FEDEX',
           ShippingId: 'FEDEX',
           service_id:

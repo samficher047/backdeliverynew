@@ -246,7 +246,7 @@ let ShippingPackagesService = class ShippingPackagesService {
                 console.log(response1.data[i]['ShippingId']);
                 const shippingInfo = {
                     provehdor: 'DRenvio',
-                    provehdorid: 1,
+                    provehdorid: '1',
                     ObjectId: response1.data[i]['ObjectId'],
                     ShippingId: response1.data[i]['ShippingId'],
                     service_id: response1.data[i]['service_id'],
@@ -268,7 +268,7 @@ let ShippingPackagesService = class ShippingPackagesService {
             }
             const shippingInfo2 = {
                 provehdor: 'DHL',
-                provehdorid: 2,
+                provehdorid: '2',
                 ObjectId: 'DHL',
                 ShippingId: 'DHL',
                 service_id: 'DHL',
@@ -290,7 +290,7 @@ let ShippingPackagesService = class ShippingPackagesService {
             for (let i = 0; i < response3.data['output']['rateReplyDetails'].length; i++) {
                 const shippingInfo = {
                     provehdor: 'FEDEX',
-                    provehdorid: 3,
+                    provehdorid: '3',
                     ObjectId: 'FEDEX',
                     ShippingId: 'FEDEX',
                     service_id: response3.data['output']['rateReplyDetails'][i]['serviceDescription']['serviceId'],
