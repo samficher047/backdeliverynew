@@ -259,7 +259,7 @@ export interface Datalabel {
 
 export interface ShippingInfo {
   provehdor: string;
-  provehdorid: number;
+  provehdorid: string;
   ObjectId: string;
   ShippingId: string;
   service_id: string;
