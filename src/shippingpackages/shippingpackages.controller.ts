@@ -41,4 +41,14 @@ export class ShippingPackagesController {
     const result = await this.shippingpackages.newlabel(datalabel);
     return result;
   }
+
+  @Post('/allshipmentsrate')
+  public async allshipmentsrate(
+    @Body()
+    SendRequest: Datasend,
+  ): Promise<any[]> {
+    console.log('entro');
+    const result = await this.shippingpackages.allrates(SendRequest);
+    return result;
+  }
 }

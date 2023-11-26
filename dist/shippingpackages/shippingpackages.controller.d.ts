@@ -7,4 +7,5 @@ export declare class ShippingPackagesController {
     RequestPurchaseTickets(SendRequest: Datasend): Promise<any[]>;
     shipmentsfedex(FedExRequ: FedExRequest): Promise<any[]>;
     generatelabel(datalabel: Datalabel): Promise<any[]>;
+    allshipmentsrate(SendRequest: Datasend): Promise<any[]>;
 }
