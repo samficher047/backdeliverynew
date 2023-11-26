@@ -310,7 +310,7 @@ let ShippingPackagesService = class ShippingPackagesService {
                 };
                 shippingArray.push(shippingInfo);
             }
-            return [shippingArray];
+            return shippingArray;
         }
         catch (error) {
             console.error(error);
