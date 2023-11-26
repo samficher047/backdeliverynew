@@ -131,9 +131,13 @@ export class ShippingPackagesService {
         },
       );
 
-      console.log(response.data);
+      console.log(response.data['label']);
+      console.log(response.data['tracking']);
 
-      const result = response.data;
+      const result = {
+        tracking: response.data['tracking'],
+        label: response.data['label'],
+      };
 
       return result;
     } catch (error) {}

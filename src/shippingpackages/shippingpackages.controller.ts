@@ -39,7 +39,7 @@ export class ShippingPackagesController {
   ): Promise<any[]> {
     console.log('entro');
     const result = await this.shippingpackages.newlabel(datalabel);
-    return result;
+    return [result];
   }
 
   @Post('/allshipmentsrate')
