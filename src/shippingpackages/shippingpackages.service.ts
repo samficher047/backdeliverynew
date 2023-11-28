@@ -118,10 +118,10 @@ export class ShippingPackagesService {
   async newlabel(Datalabel: Datalabel) {
     try {
       const token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYXV0aDB8NjBmODY4YTMzYTgzYTgwMDcwYjA0YjQwIiwidmlwIjpmYWxzZSwibmFtZSI6Ikp1bGlvIEdhcnphIiwiZW1haWwiOiJqZ2FyemFAZXFodW1hLmNvbSIsImlhdCI6MTYzNDk0MDg3M30.A3tV2Yp9tcDOIC59hwGhCHk60UVR6ihGh6p1Hi7K3uo';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYXV0aDB8NjBmODY4YTMzYTgzYTgwMDcwYjA0YjQwIiwidmlwIjpmYWxzZSwibmFtZSI6Ikp1bGlvIEdhcnphIiwiZW1haWwiOiJqZ2FyemFAZXFodW1hLmNvbSIsImlhdCI6MTY2MzEwODk4OX0.PgIYIFOcUbKP-unaNJGbHofFdGTMnKZ7x5Khjmjokdo';
 
       const response = await axios.post(
-        'https://sandbox.api-drenvio.com/v2/shipments/generate',
+        'https://api-clientes.vercel.app/v2/shipments/generate',
         Datalabel,
         {
           headers: {
@@ -189,11 +189,20 @@ export class ShippingPackagesService {
         carriers: [
           'fedex',
           'estafeta',
-          'ampm',
-          'jtexpress',
-          'redpack',
           'dhl',
-          'ups',
+          'paquetexpress',
+          'redpack',
+          'sendex',
+          'noventa9Minutos',
+          'ampm',
+          'quiken',
+          'scm',
+          'carssa',
+          'ivoy',
+          'uber',
+          'mensajeros_urbanos',
+          'jtexpress',
+          'borzo',
         ],
         insurance: 0,
       });
