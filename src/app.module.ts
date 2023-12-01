@@ -25,6 +25,7 @@ import { Images1Module } from './images/images.module';
 import { LocationWsModule } from './location-ws/location-ws.module';
 import { NotificationModule } from './notification/notification.module';
 import { ShippingPackagesModule } from './shippingpackages/shippingpackages.module';
+import { UsersCodeModule } from './users_codes/usersCodes.module'
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { ShippingPackagesModule } from './shippingpackages/shippingpackages.modu
     RequestModule,
     Images1Module,
     ShippingPackagesModule,
+    UsersCodeModule,
   ],
   controllers: [],
   providers: [],

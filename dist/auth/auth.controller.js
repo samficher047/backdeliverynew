@@ -24,9 +24,11 @@ const update_token_push_dto_1 = require("./dto/update-token-push.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
 const user_entity_1 = require("./entities/user.entity");
 const auth_service_1 = require("./auth.service");
+const usersCodes_service_1 = require("../users_codes/usersCodes.service");
 let AuthController = class AuthController {
-    constructor(authService) {
+    constructor(authService, infoUsers) {
         this.authService = authService;
+        this.infoUsers = infoUsers;
     }
     google(googleUserDto) {
         return this.authService.google(googleUserDto);
@@ -37,6 +39,7 @@ let AuthController = class AuthController {
     async register(createUserDto) {
         const result1 = await this.authService.register(createUserDto);
         const result2 = await this.authService.updateregister(result1.user.id, createUserDto.rol);
+        const resultcode = await this.infoUsers.GenerateCode(result1.user.id);
         const result3 = this.authService.inforegister(result1.user.id);
         console.log('result3');
         console.log(result3);
@@ -154,6 +157,7 @@ __decorate([
 ], AuthController.prototype, "logOut", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        usersCodes_service_1.users_CodesService])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

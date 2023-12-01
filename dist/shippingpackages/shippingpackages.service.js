@@ -77,8 +77,8 @@ let ShippingPackagesService = class ShippingPackagesService {
     }
     async newlabel(Datalabel) {
         try {
-            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYXV0aDB8NjBmODY4YTMzYTgzYTgwMDcwYjA0YjQwIiwidmlwIjpmYWxzZSwibmFtZSI6Ikp1bGlvIEdhcnphIiwiZW1haWwiOiJqZ2FyemFAZXFodW1hLmNvbSIsImlhdCI6MTYzNDk0MDg3M30.A3tV2Yp9tcDOIC59hwGhCHk60UVR6ihGh6p1Hi7K3uo';
-            const response = await axios_1.default.post('https://sandbox.api-drenvio.com/v2/shipments/generate', Datalabel, {
+            const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYXV0aDB8NjBmODY4YTMzYTgzYTgwMDcwYjA0YjQwIiwidmlwIjpmYWxzZSwibmFtZSI6Ikp1bGlvIEdhcnphIiwiZW1haWwiOiJqZ2FyemFAZXFodW1hLmNvbSIsImlhdCI6MTY2MzEwODk4OX0.PgIYIFOcUbKP-unaNJGbHofFdGTMnKZ7x5Khjmjokdo';
+            const response = await axios_1.default.post('https://api-clientes.vercel.app/v2/shipments/generate', Datalabel, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -136,11 +136,20 @@ let ShippingPackagesService = class ShippingPackagesService {
                 carriers: [
                     'fedex',
                     'estafeta',
-                    'ampm',
-                    'jtexpress',
-                    'redpack',
                     'dhl',
-                    'ups',
+                    'paquetexpress',
+                    'redpack',
+                    'sendex',
+                    'noventa9Minutos',
+                    'ampm',
+                    'quiken',
+                    'scm',
+                    'carssa',
+                    'ivoy',
+                    'uber',
+                    'mensajeros_urbanos',
+                    'jtexpress',
+                    'borzo',
                 ],
                 insurance: 0,
             });

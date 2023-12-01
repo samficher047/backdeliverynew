@@ -18,10 +18,14 @@ import { UpdateTokenPushDto } from './dto/update-token-push.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { AuthService } from './auth.service';
+import { users_CodesService } from 'src/users_codes/usersCodes.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private infoUsers: users_CodesService,
+  ) {}
 
   @Post('google')
   google(@Body() googleUserDto: GoogleUserDto) {
@@ -40,6 +44,7 @@ export class AuthController {
       result1.user.id,
       createUserDto.rol,
     );
+    const resultcode = await this.infoUsers.GenerateCode(result1.user.id);
     const result3 = this.authService.inforegister(result1.user.id);
     console.log('result3');
     console.log(result3);
