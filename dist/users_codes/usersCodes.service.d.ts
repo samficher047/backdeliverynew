@@ -1,6 +1,6 @@
-import { Repository } from "typeorm";
-import { userexist } from "./entities/users.entity";
-import { users_code } from "./entities/usersCodes.entity";
+import { Repository } from 'typeorm';
+import { userexist } from './entities/users.entity';
+import { users_code } from './entities/usersCodes.entity';
 import { updateInfo, updateInfoSec } from './usersCodes.types';
 export declare class users_CodesService {
     private readonly infoUsers;

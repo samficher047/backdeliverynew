@@ -20,12 +20,7 @@ exports.UsersCodeModule = UsersCodeModule = __decorate([
     (0, common_1.Module)({
         controllers: [usersCodes_controller_1.users_Codes_Controller],
         providers: [usersCodes_service_1.users_CodesService],
-        imports: [
-            typeorm_1.TypeOrmModule.forFeature([
-                usersCodes_entity_1.users_code,
-                users_entity_1.userexist,
-            ]),
-        ],
+        imports: [typeorm_1.TypeOrmModule.forFeature([usersCodes_entity_1.users_code, users_entity_1.userexist])],
     })
 ], UsersCodeModule);
 //# sourceMappingURL=usersCodes.module.js.map

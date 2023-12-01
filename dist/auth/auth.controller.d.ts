@@ -6,9 +6,11 @@ import { UpdateTokenPushDto } from './dto/update-token-push.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { AuthService } from './auth.service';
+import { users_CodesService } from 'src/users_codes/usersCodes.service';
 export declare class AuthController {
     private readonly authService;
-    constructor(authService: AuthService);
+    private infoUsers;
+    constructor(authService: AuthService, infoUsers: users_CodesService);
     google(googleUserDto: GoogleUserDto): Promise<{
         user: {
             token: string;

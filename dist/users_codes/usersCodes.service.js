@@ -25,10 +25,10 @@ let users_CodesService = class users_CodesService {
     }
     async GenerateCode(idUsers) {
         function convertirAAlfanumerico(numero, longitud) {
-            let cadenaNumerica = idUsers.toString();
+            const cadenaNumerica = idUsers.toString();
             const longitudAdicional = longitud - cadenaNumerica.length;
             const caracteresAleatorios = Array.from({ length: longitudAdicional }, () => Math.random().toString(36).charAt(2));
-            const codigoAlfanumerico = cadenaNumerica + caracteresAleatorios.join("");
+            const codigoAlfanumerico = cadenaNumerica + caracteresAleatorios.join('');
             return codigoAlfanumerico;
         }
         const digito = 5;
@@ -42,7 +42,7 @@ let users_CodesService = class users_CodesService {
         return datosbd;
     }
     async getInfoUsers(idUsers) {
-        console.log("idUsers");
+        console.log('idUsers');
         console.log(idUsers);
         try {
             const datosbase1 = await this.infoUsers.find({
@@ -70,7 +70,6 @@ let users_CodesService = class users_CodesService {
                 id_company: SendRequest.id_compani,
             },
         });
-        let infobase2 = [];
         const promises = datosbase1.map(async (item) => {
             return await this.setinfopri.find({
                 where: {

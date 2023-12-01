@@ -8,11 +8,8 @@ import { updateInfo, updateInfoSec } from './usersCodes.types';
 export class users_Codes_Controller {
   constructor(private infoUsers: users_CodesService) {}
 
-
   @Get('/generateCod')
-  public async generateCode(
-    @Query('id_user') IdUser,
-  ): Promise<string> {
+  public async generateCode(@Query('id_user') IdUser): Promise<string> {
     const result = await this.infoUsers.GenerateCode(IdUser);
     // console.log('result');
     // console.log(result);
@@ -20,17 +17,13 @@ export class users_Codes_Controller {
   }
 
   @Get('/infoUser')
-  public async events(
-    @Query('id_user') IdUser,
-  ): Promise<string> {
+  public async events(@Query('id_user') IdUser): Promise<string> {
     const result = await this.infoUsers.getInfoUsers(IdUser);
     console.log(result);
     return result;
   }
   @Get('/UpdateUser')
-  public async updateUser(
-    @Query() SendRequest: updateInfo,
-  ): Promise<string> {
+  public async updateUser(@Query() SendRequest: updateInfo): Promise<string> {
     const result = await this.infoUsers.updateInfoUser(SendRequest);
     console.log(result);
     return result;
@@ -44,5 +37,4 @@ export class users_Codes_Controller {
     // console.log(result);
     return result;
   }
-
 }
