@@ -25,7 +25,8 @@ import { Images1Module } from './images/images.module';
 import { LocationWsModule } from './location-ws/location-ws.module';
 import { NotificationModule } from './notification/notification.module';
 import { ShippingPackagesModule } from './shippingpackages/shippingpackages.module';
-import { UsersCodeModule } from './users_codes/usersCodes.module'
+import { UsersCodeModule } from './users_codes/usersCodes.module';
+import { LandingDataModule } from './landingpage/landingpage.module';
 
 @Module({
   imports: [
@@ -65,6 +66,7 @@ import { UsersCodeModule } from './users_codes/usersCodes.module'
     Images1Module,
     ShippingPackagesModule,
     UsersCodeModule,
+    LandingDataModule,
   ],
   controllers: [],
   providers: [],
