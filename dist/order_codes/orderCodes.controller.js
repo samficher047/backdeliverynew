@@ -19,14 +19,24 @@ let OrderCodes_Controller = class OrderCodes_Controller {
     constructor(SerServiceOrders) {
         this.SerServiceOrders = SerServiceOrders;
     }
+    async create(validateorder) {
+        const result = await this.SerServiceOrders.createOrderCode(validateorder);
+        ;
+        return result;
+    }
     async events(validateorder) {
         const result = await this.SerServiceOrders.getValidOrder(validateorder);
-        console.log("console info in controller=>");
-        console.log(result);
         return result;
     }
 };
 exports.OrderCodes_Controller = OrderCodes_Controller;
+__decorate([
+    (0, common_1.Post)('createCode'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], OrderCodes_Controller.prototype, "create", null);
 __decorate([
     (0, common_1.Post)('validOrder'),
     __param(0, (0, common_1.Body)()),

@@ -41,6 +41,47 @@ let OrderCodes_Service = class OrderCodes_Service {
             console.log(error);
         }
     }
+    async createOrderCode(validateorder) {
+        try {
+            const datosbase1 = await this.setOrderCodes.find({
+                where: {
+                    id_order: validateorder.id_order,
+                },
+            });
+            if (datosbase1.length === 0) {
+                const hexCode = Math.floor(Math.random() * 0xFFFFF).toString(16).toUpperCase().padStart(5, '0');
+                const datosbd = this.setOrderCodes.create({
+                    id_order: validateorder.id_order,
+                    code: hexCode,
+                });
+                await datosbd.save();
+                return datosbd;
+            }
+            return datosbase1;
+            return true;
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+    async GenerateCode(idUsers) {
+        function convertirAAlfanumerico(numero, longitud) {
+            const cadenaNumerica = idUsers.toString();
+            const longitudAdicional = longitud - cadenaNumerica.length;
+            const caracteresAleatorios = Array.from({ length: longitudAdicional }, () => Math.random().toString(36).charAt(2));
+            const codigoAlfanumerico = cadenaNumerica + caracteresAleatorios.join('');
+            return codigoAlfanumerico;
+        }
+        const digito = 5;
+        const codigoResultado = convertirAAlfanumerico(digito, 6);
+        console.log(codigoResultado);
+        const datosbd = this.setOrderCodes.create({
+            id_user: idUsers,
+            code: codigoResultado,
+        });
+        await datosbd.save();
+        return datosbd;
+    }
 };
 exports.OrderCodes_Service = OrderCodes_Service;
 exports.OrderCodes_Service = OrderCodes_Service = __decorate([

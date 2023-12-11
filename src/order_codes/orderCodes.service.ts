@@ -7,7 +7,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { orderCodes } from './entities/orders.entity';
-import { datesOrder, updateInfoSec } from './orderCodes.types';
+import { datesOrder, NewOrderCode } from './orderCodes.types';
 
 @Injectable()
 export class OrderCodes_Service {
@@ -142,5 +142,75 @@ export class OrderCodes_Service {
     }
   }
 
+  async createOrderCode(validateorder: NewOrderCode): Promise<any> {
+    
+    
+
+    try {
+
+        const datosbase1 = await this.setOrderCodes.find({
+            where: {
+                id_order: validateorder.id_order,
+            },
+          });
+
+          if(datosbase1.length === 0){
+
+            const hexCode = Math.floor(Math.random() * 0xFFFFF).toString(16).toUpperCase().padStart(5, '0');
+
+            const datosbd = this.setOrderCodes.create({
+                id_order: validateorder.id_order, 
+                code: hexCode,
+              });
+              await datosbd.save();
+
+            return datosbd
+          }
+
+       return datosbase1
+
+   
+
+      return true;
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async GenerateCode(idUsers): Promise<any> {
+        function convertirAAlfanumerico(numero: number, longitud: number): string {
+          // Convertir el número a cadena
+          const cadenaNumerica = idUsers.toString();
+    
+          // Calcular la longitud adicional necesaria
+          const longitudAdicional = longitud - cadenaNumerica.length;
+    
+          // Generar caracteres alfanuméricos aleatorios para completar la longitud
+          const caracteresAleatorios = Array.from(
+            { length: longitudAdicional },
+            () => Math.random().toString(36).charAt(2),
+          );
+    
+          // Concatenar el número convertido y los caracteres aleatorios
+          const codigoAlfanumerico = cadenaNumerica + caracteresAleatorios.join('');
+    
+          return codigoAlfanumerico;
+        }
+    
+        // Ejemplo de uso con el valor 5 y longitud 6
+        const digito = 5;
+        const codigoResultado = convertirAAlfanumerico(digito, 6);
+    
+        console.log(codigoResultado);
+    
+        const datosbd = this.setOrderCodes.create({
+          id_user: idUsers, // Asumo que id_user es el campo correcto según tu definición de entidad
+          code: codigoResultado,
+        });
+        await datosbd.save();
+    
+        return datosbd;
+      }
   
 }
