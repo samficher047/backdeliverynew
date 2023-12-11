@@ -1,0 +1,8 @@
+import { Repository } from 'typeorm';
+import { orderCodes } from './entities/orders.entity';
+import { datesOrder } from './orderCodes.types';
+export declare class OrderCodes_Service {
+    private readonly setOrderCodes;
+    constructor(setOrderCodes: Repository<orderCodes>);
+    getValidOrder(validateorder: datesOrder): Promise<any>;
+}
