@@ -22,11 +22,12 @@ import { ChatModule } from './chat/chat.module';
 import { CommonModule } from './common/common.module';
 import { EmailModule } from './email/email.module';
 import { Images1Module } from './images/images.module';
+import { LandingDataModule } from './landingpage/landingpage.module';
 import { LocationWsModule } from './location-ws/location-ws.module';
 import { NotificationModule } from './notification/notification.module';
+import { OrderCodesModule } from './order_codes/orderCodes.module'
 import { ShippingPackagesModule } from './shippingpackages/shippingpackages.module';
 import { UsersCodeModule } from './users_codes/usersCodes.module';
-import { LandingDataModule } from './landingpage/landingpage.module';
 
 @Module({
   imports: [
@@ -67,6 +68,7 @@ import { LandingDataModule } from './landingpage/landingpage.module';
     ShippingPackagesModule,
     UsersCodeModule,
     LandingDataModule,
+    OrderCodesModule,
   ],
   controllers: [],
   providers: [],
