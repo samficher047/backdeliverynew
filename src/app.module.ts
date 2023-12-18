@@ -21,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { CommonModule } from './common/common.module';
 import { EmailModule } from './email/email.module';
+import { FilesModule } from './files/files.module';
 import { Images1Module } from './images/images.module';
 import { LandingDataModule } from './landingpage/landingpage.module';
 import { LocationWsModule } from './location-ws/location-ws.module';
@@ -69,6 +70,7 @@ import { UsersCodeModule } from './users_codes/usersCodes.module';
     UsersCodeModule,
     LandingDataModule,
     OrderCodesModule,
+    FilesModule,
   ],
   controllers: [],
   providers: [],

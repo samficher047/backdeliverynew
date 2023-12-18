@@ -18,7 +18,7 @@ import {
     @Column({ nullable: true })
     id_user: number;
   
-    @Column()
+    @Column({ nullable: true })
     @Length(8, 8, { message: 'Code length must be 8 characters' })
     code: string;
   

@@ -1,4 +1,6 @@
+import * as bodyParser from 'body-parser';
 import * as express from 'express';
+import * as multer from 'multer';
 
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -16,6 +18,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
   app.enableCors({
     origin: '*',
   });
