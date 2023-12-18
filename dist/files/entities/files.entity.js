@@ -9,40 +9,53 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.users_code = void 0;
+exports.typefiles = void 0;
 const typeorm_1 = require("typeorm");
-const class_validator_1 = require("class-validator");
-let users_code = class users_code extends typeorm_1.BaseEntity {
+let typefiles = class typefiles extends typeorm_1.BaseEntity {
+    updateTimestamps() {
+        this.updated_at = new Date();
+    }
 };
-exports.users_code = users_code;
+exports.typefiles = typefiles;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], users_code.prototype, "id_userscode", void 0);
+], typefiles.prototype, "id_files", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Number)
-], users_code.prototype, "id_user", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    (0, class_validator_1.Length)(8, 8, { message: 'Code length must be 8 characters' }),
-    __metadata("design:type", String)
-], users_code.prototype, "code", void 0);
+], typefiles.prototype, "id_user", void 0);
 __decorate([
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
-], users_code.prototype, "id_company", void 0);
+], typefiles.prototype, "origin_name_file", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'boolean', default: true }),
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], typefiles.prototype, "new_name_file", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], typefiles.prototype, "rute", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: "boolean", default: () => "true" }),
     __metadata("design:type", Boolean)
-], users_code.prototype, "available", void 0);
+], typefiles.prototype, "available", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
+    (0, typeorm_1.CreateDateColumn)({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" }),
     __metadata("design:type", Date)
-], users_code.prototype, "created_at", void 0);
-exports.users_code = users_code = __decorate([
-    (0, typeorm_1.Entity)({
-        name: 'users_code',
-    })
-], users_code);
-//# sourceMappingURL=usersCodes.entity.js.map
+], typefiles.prototype, "created_at", void 0);
+__decorate([
+    (0, typeorm_1.CreateDateColumn)({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" }),
+    __metadata("design:type", Date)
+], typefiles.prototype, "updated_at", void 0);
+__decorate([
+    (0, typeorm_1.BeforeUpdate)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], typefiles.prototype, "updateTimestamps", null);
+exports.typefiles = typefiles = __decorate([
+    (0, typeorm_1.Entity)({ name: "files" })
+], typefiles);
+//# sourceMappingURL=files.entity.js.map
