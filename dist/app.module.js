@@ -31,6 +31,7 @@ const common_module_1 = require("./common/common.module");
 const email_module_1 = require("./email/email.module");
 const files_module_1 = require("./files/files.module");
 const images_module_1 = require("./images/images.module");
+const infousers_module_1 = require("./infousers/infousers.module");
 const landingpage_module_1 = require("./landingpage/landingpage.module");
 const location_ws_module_1 = require("./location-ws/location-ws.module");
 const notification_module_1 = require("./notification/notification.module");
@@ -82,6 +83,7 @@ exports.AppModule = AppModule = __decorate([
             landingpage_module_1.LandingDataModule,
             orderCodes_module_1.OrderCodesModule,
             files_module_1.FilesModule,
+            infousers_module_1.DataUsersModule,
         ],
         controllers: [],
         providers: [],

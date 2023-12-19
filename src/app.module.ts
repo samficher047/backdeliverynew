@@ -23,6 +23,7 @@ import { CommonModule } from './common/common.module';
 import { EmailModule } from './email/email.module';
 import { FilesModule } from './files/files.module';
 import { Images1Module } from './images/images.module';
+import { DataUsersModule } from './infousers/infousers.module'
 import { LandingDataModule } from './landingpage/landingpage.module';
 import { LocationWsModule } from './location-ws/location-ws.module';
 import { NotificationModule } from './notification/notification.module';
@@ -71,6 +72,7 @@ import { UsersCodeModule } from './users_codes/usersCodes.module';
     LandingDataModule,
     OrderCodesModule,
     FilesModule,
+    DataUsersModule,
   ],
   controllers: [],
   providers: [],
