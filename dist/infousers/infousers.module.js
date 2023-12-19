@@ -9,7 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DataUsersModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const addressbilling_entity_1 = require("./entities/addressbilling.entity");
 const addressprofile_entity_1 = require("./entities/addressprofile.entity");
+const billing_entity_1 = require("./entities/billing.entity");
 const datausers_entity_1 = require("./entities/datausers.entity");
 const infousers_controller_1 = require("./infousers.controller");
 const infousers_service_1 = require("./infousers.service");
@@ -20,7 +22,7 @@ exports.DataUsersModule = DataUsersModule = __decorate([
     (0, common_1.Module)({
         controllers: [infousers_controller_1.dataUsersController],
         providers: [infousers_service_1.datausersServices],
-        imports: [typeorm_1.TypeOrmModule.forFeature([datausers_entity_1.datausersEntity, addressprofile_entity_1.addres_profileEntity])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([datausers_entity_1.datausersEntity, addressprofile_entity_1.addres_profileEntity, billing_entity_1.billingEntity, addressbilling_entity_1.addressbillingEntity])],
     })
 ], DataUsersModule);
 //# sourceMappingURL=infousers.module.js.map

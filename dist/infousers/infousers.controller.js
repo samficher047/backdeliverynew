@@ -34,6 +34,34 @@ let dataUsersController = class dataUsersController {
         console.log(result);
         return result;
     }
+    async addBilling(databilling) {
+        console.log('entro a controlador');
+        const result = await this.setServicesdataUsers.postbilling(databilling);
+        console.log('respuesta de insert');
+        console.log(result);
+        return result;
+    }
+    async addaddressfiscal(dataAddressFiscal) {
+        console.log('entro a controlador');
+        const result = await this.setServicesdataUsers.postAddress_billing(dataAddressFiscal);
+        console.log('respuesta de insert');
+        console.log(result);
+        return result;
+    }
+    async setlibAddress(iduser) {
+        console.log('entro a controlador de select');
+        const result = await this.setServicesdataUsers.setlibAddress(iduser);
+        console.log('respuesta de insert');
+        console.log(result);
+        return result;
+    }
+    async editAddresUser(dataAddresUser) {
+        console.log('entro a controlador');
+        const result = await this.setServicesdataUsers.editAddresUser(dataAddresUser);
+        console.log('respuesta de insert');
+        console.log(result);
+        return result;
+    }
 };
 exports.dataUsersController = dataUsersController;
 __decorate([
@@ -50,6 +78,34 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], dataUsersController.prototype, "addNewAddres", null);
+__decorate([
+    (0, common_1.Post)("/addDatabilling"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], dataUsersController.prototype, "addBilling", null);
+__decorate([
+    (0, common_1.Post)("/addresfiscal"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], dataUsersController.prototype, "addaddressfiscal", null);
+__decorate([
+    (0, common_1.Get)("/addresfiscal"),
+    __param(0, (0, common_1.Query)('iduser')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], dataUsersController.prototype, "setlibAddress", null);
+__decorate([
+    (0, common_1.Post)("/editAddress"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], dataUsersController.prototype, "editAddresUser", null);
 exports.dataUsersController = dataUsersController = __decorate([
     (0, common_1.Controller)("dataUsers"),
     __metadata("design:paramtypes", [infousers_service_1.datausersServices])
