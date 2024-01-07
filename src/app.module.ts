@@ -31,6 +31,8 @@ import { OrderCodesModule } from './order_codes/orderCodes.module';
 import { ShippingPackagesModule } from './shippingpackages/shippingpackages.module';
 import { UsersCodeModule } from './users_codes/usersCodes.module';
 import { walletModule } from './wallet/wallet.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -76,7 +78,7 @@ import { walletModule } from './wallet/wallet.module';
     DataUsersModule,
     walletModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

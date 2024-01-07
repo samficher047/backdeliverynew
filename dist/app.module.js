@@ -39,6 +39,8 @@ const orderCodes_module_1 = require("./order_codes/orderCodes.module");
 const shippingpackages_module_1 = require("./shippingpackages/shippingpackages.module");
 const usersCodes_module_1 = require("./users_codes/usersCodes.module");
 const wallet_module_1 = require("./wallet/wallet.module");
+const app_controller_1 = require("./app.controller");
+const app_service_1 = require("./app.service");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -87,8 +89,8 @@ exports.AppModule = AppModule = __decorate([
             infousers_module_1.DataUsersModule,
             wallet_module_1.walletModule,
         ],
-        controllers: [],
-        providers: [],
+        controllers: [app_controller_1.AppController],
+        providers: [app_service_1.AppService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
