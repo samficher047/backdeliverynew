@@ -70,6 +70,9 @@ let AuthController = class AuthController {
         return this.authService.login(loginUserDto);
     }
     checkStatus(user, idDevice) {
+        console.log('<<<<<<<<<<<<<<<<<<<<< user');
+        console.log(user);
+        console.log(idDevice);
         return this.authService.checkStatus(user, idDevice);
     }
     updateTokenPush(updateTokenPushDto, user) {

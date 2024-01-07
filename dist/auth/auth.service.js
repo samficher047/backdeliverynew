@@ -183,6 +183,9 @@ let AuthService = class AuthService {
         };
     }
     async checkStatus(user, idDevice) {
+        console.log('<<<<<<<<<<<<<<<<<<<<< user');
+        console.log(user);
+        console.log(idDevice);
         const session = await this.sessionRepository.findOne({
             where: { user: { id: user.id }, idDevice },
             select: { id: true },

@@ -38,6 +38,7 @@ const notification_module_1 = require("./notification/notification.module");
 const orderCodes_module_1 = require("./order_codes/orderCodes.module");
 const shippingpackages_module_1 = require("./shippingpackages/shippingpackages.module");
 const usersCodes_module_1 = require("./users_codes/usersCodes.module");
+const wallet_module_1 = require("./wallet/wallet.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -84,6 +85,7 @@ exports.AppModule = AppModule = __decorate([
             orderCodes_module_1.OrderCodesModule,
             files_module_1.FilesModule,
             infousers_module_1.DataUsersModule,
+            wallet_module_1.walletModule,
         ],
         controllers: [],
         providers: [],

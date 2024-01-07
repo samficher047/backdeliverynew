@@ -23,13 +23,14 @@ import { CommonModule } from './common/common.module';
 import { EmailModule } from './email/email.module';
 import { FilesModule } from './files/files.module';
 import { Images1Module } from './images/images.module';
-import { DataUsersModule } from './infousers/infousers.module'
+import { DataUsersModule } from './infousers/infousers.module';
 import { LandingDataModule } from './landingpage/landingpage.module';
 import { LocationWsModule } from './location-ws/location-ws.module';
 import { NotificationModule } from './notification/notification.module';
-import { OrderCodesModule } from './order_codes/orderCodes.module'
+import { OrderCodesModule } from './order_codes/orderCodes.module';
 import { ShippingPackagesModule } from './shippingpackages/shippingpackages.module';
 import { UsersCodeModule } from './users_codes/usersCodes.module';
+import { walletModule } from './wallet/wallet.module';
 
 @Module({
   imports: [
@@ -73,6 +74,7 @@ import { UsersCodeModule } from './users_codes/usersCodes.module';
     OrderCodesModule,
     FilesModule,
     DataUsersModule,
+    walletModule,
   ],
   controllers: [],
   providers: [],

@@ -92,6 +92,9 @@ export class AuthController {
     @GetUser() user: User,
     @Param('idDevice', ParseUUIDPipe) idDevice: string,
   ) {
+    console.log('<<<<<<<<<<<<<<<<<<<<< user');
+    console.log(user);
+    console.log(idDevice);
     return this.authService.checkStatus(user, idDevice);
   }
 
