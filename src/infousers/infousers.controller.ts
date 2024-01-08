@@ -79,4 +79,18 @@ export class dataUsersController {
     
     return result;
   }
+
+  @Get("/deleteAddress")
+  public async DeleteAddress(
+    @Query('idAdds') iduser 
+  
+  ): Promise<any> {
+
+    const result = await this.setServicesdataUsers.setlibAddress(iduser);
+
+    console.log('respuesta de insert')
+    console.log(result)
+    
+    return result;
+  }
 }

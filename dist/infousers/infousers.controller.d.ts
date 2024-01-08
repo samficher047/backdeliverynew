@@ -9,4 +9,5 @@ export declare class dataUsersController {
     addaddressfiscal(dataAddressFiscal: dataAddressFiscal): Promise<any>;
     setlibAddress(iduser: any): Promise<any>;
     editAddresUser(dataAddresUser: dataAddresUser): Promise<string>;
+    DeleteAddress(iduser: any): Promise<any>;
 }

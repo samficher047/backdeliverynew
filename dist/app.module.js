@@ -41,6 +41,7 @@ const usersCodes_module_1 = require("./users_codes/usersCodes.module");
 const wallet_module_1 = require("./wallet/wallet.module");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
+const websocket_gateway_1 = require("./socket/websocket.gateway");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -90,7 +91,7 @@ exports.AppModule = AppModule = __decorate([
             wallet_module_1.walletModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [app_service_1.AppService, websocket_gateway_1.SocketGatewayApp],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

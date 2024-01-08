@@ -140,4 +140,13 @@ export class datausersServices {
 
     return datosbase1;
   }
+
+  async DeleteAddress(idUsed): Promise<any> {
+    
+    const datosbase1 = await this.setaddressusers.delete({
+      id_address: idUsed,
+    });
+
+    return datosbase1;
+  }
 }
