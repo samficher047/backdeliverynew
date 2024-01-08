@@ -33,6 +33,7 @@ import { UsersCodeModule } from './users_codes/usersCodes.module';
 import { walletModule } from './wallet/wallet.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { SocketGatewayApp } from './socket/websocket.gateway';
 
 @Module({
   imports: [
@@ -79,6 +80,6 @@ import { AppService } from './app.service';
     walletModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SocketGatewayApp],
 })
 export class AppModule {}

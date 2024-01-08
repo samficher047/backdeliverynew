@@ -16,4 +16,5 @@ export declare class datausersServices {
     postAddress_billing(dataAddressFiscal: dataAddressFiscal): Promise<any>;
     setlibAddress(idhotel: any): Promise<any>;
     editAddresUser(dataAddresUser: dataAddresUser): Promise<any>;
+    DeleteAddress(idUsed: any): Promise<any>;
 }

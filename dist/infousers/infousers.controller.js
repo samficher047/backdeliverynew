@@ -62,6 +62,12 @@ let dataUsersController = class dataUsersController {
         console.log(result);
         return result;
     }
+    async DeleteAddress(iduser) {
+        const result = await this.setServicesdataUsers.setlibAddress(iduser);
+        console.log('respuesta de insert');
+        console.log(result);
+        return result;
+    }
 };
 exports.dataUsersController = dataUsersController;
 __decorate([
@@ -106,6 +112,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], dataUsersController.prototype, "editAddresUser", null);
+__decorate([
+    (0, common_1.Get)("/deleteAddress"),
+    __param(0, (0, common_1.Query)('idAdds')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], dataUsersController.prototype, "DeleteAddress", null);
 exports.dataUsersController = dataUsersController = __decorate([
     (0, common_1.Controller)("dataUsers"),
     __metadata("design:paramtypes", [infousers_service_1.datausersServices])

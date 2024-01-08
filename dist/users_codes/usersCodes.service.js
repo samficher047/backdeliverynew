@@ -50,7 +50,7 @@ let users_CodesService = class users_CodesService {
                     id_user: idUsers,
                 },
             });
-            return datosbase1;
+            return datosbase1[0];
         }
         catch (error) {
             console.log(error);

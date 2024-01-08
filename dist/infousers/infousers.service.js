@@ -119,6 +119,12 @@ let datausersServices = class datausersServices {
         });
         return datosbase1;
     }
+    async DeleteAddress(idUsed) {
+        const datosbase1 = await this.setaddressusers.delete({
+            id_address: idUsed,
+        });
+        return datosbase1;
+    }
 };
 exports.datausersServices = datausersServices;
 exports.datausersServices = datausersServices = __decorate([
