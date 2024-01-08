@@ -42,6 +42,7 @@ const wallet_module_1 = require("./wallet/wallet.module");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const websocket_gateway_1 = require("./socket/websocket.gateway");
+const allinfo_module_1 = require("./all_info/allinfo.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -89,6 +90,7 @@ exports.AppModule = AppModule = __decorate([
             files_module_1.FilesModule,
             infousers_module_1.DataUsersModule,
             wallet_module_1.walletModule,
+            allinfo_module_1.allinfoModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, websocket_gateway_1.SocketGatewayApp],

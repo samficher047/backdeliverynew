@@ -34,6 +34,7 @@ import { walletModule } from './wallet/wallet.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SocketGatewayApp } from './socket/websocket.gateway';
+import { allinfoModule } from './all_info/allinfo.module';
 
 @Module({
   imports: [
@@ -78,6 +79,7 @@ import { SocketGatewayApp } from './socket/websocket.gateway';
     FilesModule,
     DataUsersModule,
     walletModule,
+    allinfoModule,
   ],
   controllers: [AppController],
   providers: [AppService, SocketGatewayApp],
